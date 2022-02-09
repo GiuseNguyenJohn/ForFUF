@@ -2,12 +2,13 @@
 Name: John Nguyen
 Contributor: Matt Sprengel
 Description: Automates basic checks for CTF forensics challenges
-Dependecies: binwalk, exiftool, hexdump, zsteg, strings
+Dependecies: binwalk, exiftool, hexdump, zsteg, strings, steghide
 Tested: Python 3.9.6 on GNU/Linux
 """
 
 """
 Ideas:
+- write unit tests for each function/class
 - Questions:
     - grep for flag, or parse with python?
     - how to format output? files? stdout?
@@ -16,7 +17,7 @@ Ideas:
 - check LSB steg with zsteg
 - extract strings and search for flag
 - use regex to identify when flag characters are all grouped together within
-    a certain range
+    a certain range (ex. C.T.F.{.F.L.A.G.} )
 """
 
 """
@@ -35,3 +36,13 @@ TODO:
         - LSB encoding
         - 
 """
+
+import unittest
+from argparse import ArgumentParser
+from os import popen
+
+class FileClass:
+    """
+    A class to describe a given file. Includeds binwalk check for
+    embedded files.
+    """
