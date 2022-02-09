@@ -7,11 +7,22 @@ Tested: Python 3.9 on Kali Linux
 """
 
 """
+Ideas:
+- how to format output? files? stdout?
+- automatic flag detection?
+- check and fix corrupt file headers
+- 
+"""
+
+"""
 TODO:
 - Add one-liner in README to install all dependencies in bash
-- Add function to 
+-  
 - Make argparser to parse:
     - infile
     - outfile
-    - 
+    - 'all' option
+    - individual checks only:
+        - binwalk
+        - 
 """
