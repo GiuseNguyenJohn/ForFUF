@@ -12,6 +12,7 @@ Ideas:
 - Questions:
     - grep for flag, or parse with python?
     - how to format output? files? stdout?
+    - how to check for run with sudo? uid? $USER env var?
 - automatic flag detection?
 - run 'file' linux tool to determine type of file
 - check and fix corrupt file headers
@@ -44,10 +45,10 @@ import os
 from os.path import exists
 from os import popen
 from os import getcwd
+from os import getuid
 
-def check_file_permission(filename):
-    """Check that the user has correct permissions to supplied file."""
-    if exists(os.join(getcwd(),))
+class NotSudo(Exception):
+    pass
 
 class FileClass:
     """
@@ -59,3 +60,11 @@ class FileClass:
         self.filename = filename
         
         self.file_description = 
+
+def check_sudo():
+    if os.getuid() != 0:
+        raise NotSudo("This program is not being run with sudo permissions.")
+
+def check_file_exists(filename):
+    """Check that the user has correct permissions to supplied file."""
+    if exists(os.join(getcwd(),))
