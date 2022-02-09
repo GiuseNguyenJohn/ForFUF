@@ -58,13 +58,31 @@ class FileClass:
 
     def __init__(self, filename):
         self.filename = filename
-        
-        self.file_description = 
+        self.file_description = ''
 
 def check_sudo():
+    """Check if program is being run as root."""
+
     if os.getuid() != 0:
         raise NotSudo("This program is not being run with sudo permissions.")
 
 def check_file_exists(filename):
-    """Check that the user has correct permissions to supplied file."""
-    if exists(os.join(getcwd(),))
+    """Check that the given file exists."""
+
+    if exists(filename):
+        return True
+    if exists(os.join(getcwd(),filename)):
+        return True
+    return False
+
+def check_setup(filename):
+    """Make sure program is run as root and given file exists."""
+
+    check_sudo()
+    if not check_file_exists(filename):
+        print(f"File {filename} not found!")
+        exit(1)
+
+parser = ArgumentParser(description="A command-line tool for"
+                                    "to automate basic checks"
+                                    "for CTF forensics challenges")
