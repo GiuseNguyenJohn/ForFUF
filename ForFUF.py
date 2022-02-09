@@ -12,6 +12,8 @@ Ideas:
 - Questions:
     - grep for flag, or parse with python?
     - how to format output? files? stdout?
+    - use try/except to figure out if file exists, or use function
+        that returns True/False?
 - automatic flag detection?
 - run 'file' linux tool to determine type of file
 - check and fix corrupt file headers
@@ -24,7 +26,8 @@ Ideas:
 """
 TODO:
 - Add one-liner in README to install all dependencies in bash
--  
+- Add function to check if given file exists
+- 
 - Make argparser to parse:
     - infile
     - outfile
@@ -38,9 +41,13 @@ TODO:
         - 
 """
 
-import unittest
 from argparse import ArgumentParser
 from os import popen
+from os.path import exists
+
+def file_exists(absolute_filepath):
+    """Check that the inputted file exists from a absolute filepath."""
+    if exists()
 
 class FileClass:
     """
@@ -50,5 +57,5 @@ class FileClass:
 
     def __init__(self, filename):
         self.filename = filename
-        self.file_cmd = popen('file ')
+        
         self.file_description = 
