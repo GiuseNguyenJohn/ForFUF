@@ -3,7 +3,7 @@ Name: John Nguyen
 Contributor: Matt Sprengel
 Description: Automates basic checks for CTF forensics challenges
 Dependecies: binwalk, exiftool, hexdump, 
-Tested: Python 3.9 on Kali Linux
+Tested: Python 3.9.6 on GNU/Linux
 """
 
 """
