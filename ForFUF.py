@@ -13,6 +13,7 @@ Ideas:
     - grep for flag, or parse with python?
     - how to format output? files? stdout?
 - automatic flag detection?
+- run 'file' linux tool to determine type of file
 - check and fix corrupt file headers
 - check LSB steg with zsteg
 - extract strings and search for flag
@@ -43,6 +44,11 @@ from os import popen
 
 class FileClass:
     """
-    A class to describe a given file. Includeds binwalk check for
+    A class to describe a given file. Includes binwalk check for
     embedded files.
     """
+
+    def __init__(self, filename):
+        self.filename = filename
+        self.file_cmd = popen('file ')
+        self.file_description = 
