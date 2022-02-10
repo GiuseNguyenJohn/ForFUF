@@ -40,16 +40,49 @@ TODO:
         - 
 """
 
+import re
 from argparse import ArgumentParser
-import os
 from os.path import exists
-from os import popen
-from os import getcwd
-from os import getuid
+from os import popen, getcwd, getuid
 
 class NotSudo(Exception):
     pass
 
+def check_sudo():
+    """Check if program is being run as root."""
+    # Raise error if not run with uid 0 (root)
+    if os.getuid() != 0:
+        raise NotSudo("This program is not being run with sudo permissions.")
+
+def check_file_exists(filepath):
+    """Check that the given file exists."""
+    # We know the program is being run as root, so if an error is returned,
+    # we know the filepath doesn't exist.
+    if exists(filepath):
+        return True
+    else:
+        return False
+
+def check_setup(filename):
+    """Make sure program is run as root and given file exists."""
+    # Calls both functions "check_sudo" and "check_file_exists".
+    check_sudo()
+    if not check_file_exists(filename):
+        print(f"File {filename} not found!")
+        exit(1)
+    else:
+        pass
+
+def get_regex_flag_format(regex_string):
+    """Takes a string and returns a match object"""
+    match_object = re.compile(regex_string)
+    return match_object
+
+def parse_for_flag(text):
+    """
+    Uses regex object from 'get_regex_flag_format' to search
+    text for flag pattern
+    """ 
 class FileClass:
     """
     A class to describe a given file. Includes steghide check with blank password.
@@ -59,31 +92,11 @@ class FileClass:
         self.filename = filename
         self.file_description = ''
 
-def check_sudo():
-    """Check if program is being run as root."""
 
-    if os.getuid() != 0:
-        raise NotSudo("This program is not being run with sudo permissions.")
+def main():
+    parser = ArgumentParser(description="A command-line tool for"
+                                        "to automate basic checks"
+                                        "for CTF forensics challenges")
+    parser.add_argument('--flag-format', type=str, help='regex pattern for flag')
+    args = parser.parse_args()
 
-def check_file_exists(filename):
-    """Check that the given file exists."""
-
-    if exists(filename):
-        return True
-    if exists(os.join(getcwd(),filename)):
-        return True
-    return False
-
-def check_setup(filename):
-    """Make sure program is run as root and given file exists."""
-
-    check_sudo()
-    if not check_file_exists(filename):
-        print(f"File {filename} not found!")
-        exit(1)
-
-parser = ArgumentParser(description="A command-line tool for"
-                                    "to automate basic checks"
-                                    "for CTF forensics challenges")
-parser.add_argument('--steghide', action='get_password', type='str',
-                    required=False, )
