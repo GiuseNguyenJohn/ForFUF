@@ -52,8 +52,7 @@ class NotSudo(Exception):
 
 class FileClass:
     """
-    A class to describe a given file. Includes binwalk check for
-    embedded files.
+    A class to describe a given file. Includes steghide check with blank password.
     """
 
     def __init__(self, filename):
@@ -86,3 +85,5 @@ def check_setup(filename):
 parser = ArgumentParser(description="A command-line tool for"
                                     "to automate basic checks"
                                     "for CTF forensics challenges")
+parser.add_argument('--steghide', action='get_password', type='str',
+                    required=False, )
