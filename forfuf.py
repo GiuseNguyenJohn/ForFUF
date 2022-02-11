@@ -47,7 +47,7 @@ def check_file_exists(filepath):
 def get_regex_flag_format(regex_string):
     """Takes a string and returns a match object"""
     # Pattern of plaintext AND rot13 flag format
-    pattern = f"{regex_string}|{codecs.encode(regex_string, 'rot13')"
+    pattern = f"{regex_string}|{codecs.encode(regex_string, 'rot13')}"
     match_object = re.compile(pattern)
     return match_object
 
