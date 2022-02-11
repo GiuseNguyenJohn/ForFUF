@@ -17,17 +17,12 @@ Ideas:
 """
 TODO:
 - Add one-liner in README to install all dependencies in bash
-- Add function to check if given file exists
-- use try/except to figure out if file exists
-- Make argparser to parse:
-    - infile
-    - outfile
-    - flag format
-    - fake flag format?
-    - 'all' option
-    - individual checks only:
-        - embedded files
-        - metadata
-        - LSB encoding
-        - 
-"""
+- check if program ran with sudo
+- check if given file exists
+- store flag format, return match object
+- get a file's magic bytes
+- search for flag in text, return possible flags
+- store fake flag
+- compare magic bytes to header dictionary to return filetype
+- take png/bmp filename and return zsteg output
+- 
