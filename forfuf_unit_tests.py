@@ -9,5 +9,8 @@ class ForfufTestCase(unittest.TestCase):
         file_exists = forfuf.check_file_exists('test.png')
         self.assertEqual(file_exists, True)
 
+    def test_get_regex_flag_format(self):
+        """Will input 'picoctf\{.*\}' return """
+        
 if __name__ = '__main__':
     unittest.main()
