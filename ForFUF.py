@@ -46,18 +46,19 @@ def check_file_exists(filepath):
 
 def get_regex_flag_format(regex_string):
     """Takes a string and returns a match object"""
-
-    match_object = re.compile(regex_string)
+    # Pattern of plaintext AND rot13 flag format
+    pattern = f"{regex_string}|{codecs.encode(regex_string, 'rot13')"
+    match_object = re.compile(pattern)
     return match_object
 
-def parse_for_flag(match_object, text):
+def parse_for_possible_flags(match_object, text):
     """
     Uses regex object from 'get_regex_flag_format' to search
     text for flag pattern
     """
-    # Get match object of flag and return flag
-    flag = re.search(match_object, text)
-    return flag.groups()
+    # Get list of possible flags and return the list
+    possible_flags = match_object.findall(text)
+    return possible_flags
 
 class FileClass:
     """
