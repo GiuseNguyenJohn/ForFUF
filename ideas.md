@@ -10,7 +10,7 @@
 - check LSB steg with zsteg
 - extract strings and search for flag
 - use regex to identify when flag characters are all grouped together within
-    a certain range (ex. C.T.F.{.F.L.A.G.} )
+    a certain range (ex. C.T.F.{.F.L.A.G.} )  // attempt for 'picoctf{}':  p.{0,2}i.{0,2}c.{0,2}o.{0,2}c.{0,2}t.{0,2}f.{0,2}\\{.*\\}
 
 
 ### TODO:
@@ -19,7 +19,7 @@
 - [x] check if given file exists
 - [x] store flag format, return match object (plaintext, rot13, base64)
 - [] get a file's magic bytes
-- [] search for flag in text, return possible flags
+- [x] search for flag in text, return possible flags
 - [] store fake flag
 - [] compare magic bytes to header dictionary to return filetype
 - [] take png/bmp filename and return zsteg output
