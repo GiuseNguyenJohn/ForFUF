@@ -62,7 +62,7 @@ def parse_for_possible_flags(match_object, text):
 
 class FileClass:
     """
-    A class to describe a given file. Includes steghide check with blank password.
+    A class to describe a given file.
     """
 
     def __init__(self, filename):
@@ -75,7 +75,7 @@ def main():
     parser = ArgumentParser(description="A command-line tool for"
                                         "to automate basic checks"
                                         "for CTF forensics challenges")
-    parser.add_argument('--flag-format', type=str, help='regex pattern for flag')
+    parser.add_argument('--flag-format', type=str, help='regex flag pattern')
     args = parser.parse_args()
 
 if __name__ == '__main__':
