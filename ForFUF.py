@@ -2,7 +2,7 @@
 
 """
 Name: John Nguyen
-Contributor: Matt Sprengel
+Contributors: Matt Sprengel
 Description: Automates basic checks for CTF forensics challenges
 Dependecies: binwalk, exiftool, hexdump, zsteg, strings, steghide
 Tested: Python 3.9 on Kali Linux
@@ -42,16 +42,6 @@ def check_file_exists(filepath):
         return True
     else:
         return False
-
-def check_setup(filename):
-    """Make sure program is run as root and given file exists."""
-    # Calls both functions "check_sudo" and "check_file_exists".
-    check_sudo()
-    if not check_file_exists(filename):
-        print(f"File {filename} not found!")
-        exit(1)
-    else:
-        pass
 
 def get_regex_flag_format(regex_string):
     """Takes a string and returns a match object"""
