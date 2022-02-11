@@ -8,6 +8,7 @@ Dependecies: binwalk, exiftool, hexdump, zsteg, strings, steghide
 Tested: Python 3.9 on Kali Linux
 """
 
+import codecs
 import re
 from argparse import ArgumentParser
 from os.path import exists

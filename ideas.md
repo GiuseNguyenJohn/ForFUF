@@ -1,5 +1,4 @@
-"""
-Ideas:
+### Ideas:
 - write unit tests for each function/class
 - Questions:
     - grep for flag, or parse with python?
@@ -12,17 +11,21 @@ Ideas:
 - extract strings and search for flag
 - use regex to identify when flag characters are all grouped together within
     a certain range (ex. C.T.F.{.F.L.A.G.} )
-"""
 
-"""
-TODO:
+
+### TODO:
 - Add one-liner in README to install all dependencies in bash
 - check if program ran with sudo
 - check if given file exists
-- store flag format, return match object
+- store flag format, return match object (plaintext, rot13, base64)
 - get a file's magic bytes
 - search for flag in text, return possible flags
 - store fake flag
 - compare magic bytes to header dictionary to return filetype
 - take png/bmp filename and return zsteg output
+- create log in current directory
+- take text and append to log
+- take zip filename and unzip
+- take filename and extract with `binwalk -Me`, return output
+- take filename and return strings output
 - 
