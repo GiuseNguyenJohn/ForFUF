@@ -14,5 +14,5 @@ class ForfufTestCase(unittest.TestCase):
     def test_get_regex_flag_format(self):
         """Will input 'picoctf\{.*\}' return """
         
-if __name__ = '__main__':
+if __name__ == '__main__':
     unittest.main()
