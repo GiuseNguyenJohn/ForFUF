@@ -1,0 +1,33 @@
+"""
+Ideas:
+- write unit tests for each function/class
+- Questions:
+    - grep for flag, or parse with python?
+    - how to format output? files? stdout?
+    - how to check for run with sudo? uid? $USER env var?
+- automatic flag detection?
+- run 'file' linux tool to determine type of file
+- check and fix corrupt file headers
+- check LSB steg with zsteg
+- extract strings and search for flag
+- use regex to identify when flag characters are all grouped together within
+    a certain range (ex. C.T.F.{.F.L.A.G.} )
+"""
+
+"""
+TODO:
+- Add one-liner in README to install all dependencies in bash
+- Add function to check if given file exists
+- use try/except to figure out if file exists
+- Make argparser to parse:
+    - infile
+    - outfile
+    - flag format
+    - fake flag format?
+    - 'all' option
+    - individual checks only:
+        - embedded files
+        - metadata
+        - LSB encoding
+        - 
+"""

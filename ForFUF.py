@@ -6,44 +6,22 @@ Dependecies: binwalk, exiftool, hexdump, zsteg, strings, steghide
 Tested: Python 3.9.6 on GNU/Linux
 """
 
-"""
-Ideas:
-- write unit tests for each function/class
-- Questions:
-    - grep for flag, or parse with python?
-    - how to format output? files? stdout?
-    - how to check for run with sudo? uid? $USER env var?
-- automatic flag detection?
-- run 'file' linux tool to determine type of file
-- check and fix corrupt file headers
-- check LSB steg with zsteg
-- extract strings and search for flag
-- use regex to identify when flag characters are all grouped together within
-    a certain range (ex. C.T.F.{.F.L.A.G.} )
-"""
-
-"""
-TODO:
-- Add one-liner in README to install all dependencies in bash
-- Add function to check if given file exists
-- use try/except to figure out if file exists
-- Make argparser to parse:
-    - infile
-    - outfile
-    - flag format
-    - fake flag format?
-    - 'all' option
-    - individual checks only:
-        - embedded files
-        - metadata
-        - LSB encoding
-        - 
-"""
-
 import re
 from argparse import ArgumentParser
 from os.path import exists
 from os import popen, getcwd, getuid
+
+
+ascii_art = r"""
+ ________ ________  ________  ________ ___  ___  ________ 
+|\  _____\\   __  \|\   __  \|\  _____\\  \|\  \|\  _____\
+\ \  \__/\ \  \|\  \ \  \|\  \ \  \__/\ \  \\\  \ \  \__/ 
+ \ \   __\\ \  \\\  \ \   _  _\ \   __\\ \  \\\  \ \   __\
+  \ \  \_| \ \  \\\  \ \  \\  \\ \  \_| \ \  \\\  \ \  \_|
+   \ \__\   \ \_______\ \__\\ _\\ \__\   \ \_______\ \__\ 
+    \|__|    \|_______|\|__|\|__|\|__|    \|_______|\|__| 
+"""
+
 
 class NotSudo(Exception):
     pass
