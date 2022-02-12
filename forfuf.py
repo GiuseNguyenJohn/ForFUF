@@ -61,6 +61,11 @@ def parse_for_possible_flags(match_object, text):
     possible_flags = match_object.findall(text)
     return possible_flags
 
+def extract_with_steghide(filename, password=''):
+    """
+    Extracts using steghide extract -sf FILENAME -p PASSPHRASE. If 
+    """
+
 class FileClass:
     """
     A class to describe a given file.

@@ -5,7 +5,7 @@ A command-line utility to automate the checking and solving of low hanging fruit
 <!-- TODO: add bash 1-liner to install dependencies -->
 ## Setup:
 ### Download required packages: 
-```yes | sudo apt install binwalk exiftool hexdump zsteg strings steghide```
+```yes | sudo apt install binwalk exiftool steghide bsdmainutils && sudo gem install zsteg```
 
 ### Clone repository:
 ```git clone https://github.com/Magicks52/ForFUF.git```
