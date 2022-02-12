@@ -18,7 +18,7 @@
 - [x] check if program ran with sudo
 - [x] check if given file exists
 - [x] store flag format, return match object (plaintext, rot13, base64)
-- [x] search for flag in text, return possible flags
+- [/] search for flag in text, return possible flags
 - [] store fake flag
 - [] determine filetype with magic module
 - [] take png/bmp filename and return zsteg output

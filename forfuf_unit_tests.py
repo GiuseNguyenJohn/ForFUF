@@ -9,7 +9,7 @@ class ForfufTestCase(unittest.TestCase):
 
     def test_check_file_exists(self):
         """Will filename 'test.png' (exists) return True?"""
-        file_exists = forfuf.check_file_exists('test.png')
+        file_exists = forfuf.check_file_exists('cat.jpg')
         self.assertEqual(file_exists, True)
 
     def test_get_regex_flag_format(self):
