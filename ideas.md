@@ -27,6 +27,7 @@
 - [] take zip filename and unzip
 - [] take filename and extract with `binwalk -Me`, return output
 - [] take filename and return strings output
-- take filename and return exiftool output
-- output magic bytes neatly
-- take hex and overwrite the file header
+- [] take filename and return exiftool output
+- [] take filename and default password of '', extract with password using steghide, return output
+- [] output magic bytes neatly
+- [] take hex and overwrite the file header
