@@ -9,6 +9,7 @@ Tested: Python 3.9 on Kali Linux
 """
 
 import codecs
+import magic
 import re
 from argparse import ArgumentParser
 from os.path import exists
@@ -67,7 +68,7 @@ class FileClass:
 
     def __init__(self, filename):
         self.filename = filename
-        self.file_description = ''
+        self.file_description = magic.from_file(filename)
 
 
 def main():
