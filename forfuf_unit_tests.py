@@ -44,8 +44,14 @@ class ForfufTestCase(unittest.TestCase):
 
     def test_get_regex_flag_format(self):
         """Will input 'picoctf\{.*\}' return correct match object?"""
-        match_object = forfuf.get_regex_flag_format(r"picoctf\{.*\}")
-        correct_match_object = re.compile(r"picoctf\{.*\}|cvpbpgs\{.*\}")
+        match_object = forfuf.get_regex_flag_format(r"p.{0,2}i.{0,2}c."
+                                                    r"{0,2}o.{0,2}c.{0,2}"
+                                                    r"t.{0,2}f.{0,2}\{.*\}")
+        correct_match_object = re.compile(r"p.{0,2}i.{0,2}c.{0,2}o."
+                                            r"{0,2}c.{0,2}t.{0,2}f.{0,2}"
+                                            r"\{.*\}|c.{0,2}v.{0,2}p.{0,2}"
+                                            r"b.{0,2}p.{0,2}g.{0,2}s.{0,2}"
+                                            r"\{.*\}")
         self.assertEqual(match_object, correct_match_object)
 
     def test_parse_for_possible_flags(self):
