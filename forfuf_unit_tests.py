@@ -16,7 +16,7 @@ File Type                       : JPEG
 File Type Extension             : jpg
 MIME Type                       : image/jpeg
 JFIF Version                    : 1.02
-Resolution Unit                 : None
+Resolution Unit                 : .i.c.t.f.{.f.l.a.g.}.
 X Resolution                    : 100
 Y Resolution                    : 100
 Current IPTC Digest             : 0def9dc9a98ce8bc8abdd7b2c54c23f2
@@ -69,6 +69,13 @@ class ForfufTestCase(unittest.TestCase):
                                                     r"{0,2}o.{0,2}c.{0,2}"
                                                     r"t.{0,2}f.{0,2}\{.*\}")
         correct_flag = "cvpbpgs{1337}"
+        found_flag = forfuf.parse_for_possible_flags(match_object, text_for_test_parsing)
+        self.assertIn(correct_flag, found_flag)
+
+    def test_range_parsing(self):
+        """Will match object and exif data input return flag?"""
+        match_object = forfuf.get_regex_flag_format(r"i.{0,2}c.{0,2}t.{0,2}f.{0,2}\{.*\}")
+        correct_flag = "ictf{flag}"
         found_flag = forfuf.parse_for_possible_flags(match_object, text_for_test_parsing)
         self.assertIn(correct_flag, found_flag)
 

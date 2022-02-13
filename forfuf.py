@@ -9,6 +9,7 @@ Tested: Python 3.9 on Kali Linux
 """
 
 import codecs
+from tabnanny import check
 import magic
 import re
 from argparse import ArgumentParser
@@ -45,23 +46,9 @@ def check_file_exists(filepath):
     """Check that the given file exists."""
     # We know the program is being run as root, so if an error is returned,
     # we know the filepath doesn't exist.
-    if exists(filepath):
-        return True
-    else:
-        return False
-
-def extract_with_steghide(filename, password="''"):
-    """Extracts using 'steghide extract -sf FILENAME -p PASSPHRASE'."""
-    # Steghide command
-    cmd = f"steghide extract -sf {filename} -p {password}"
-    output = popen(cmd)
-    return output.read()
-
-def get_metadata(filename):
-    """"""
-    cmd = f"exiftool {filename}"
-    output = popen(cmd)
-    return output.read()
+    if not exists(filepath):
+        print(f'"{filepath}" not found!')
+        exit(1)
 
 def get_regex_flag_format(regex_string):
     """Takes a string and returns a match object"""
@@ -69,9 +56,6 @@ def get_regex_flag_format(regex_string):
     pattern = f"{regex_string}|{codecs.encode(regex_string, 'rot13')}"
     match_object = re.compile(pattern)
     return match_object
-
-def get_strings(filename):
-    """Takes filename, """
 
 def parse_for_possible_flags(match_object, text):
     """
@@ -82,6 +66,42 @@ def parse_for_possible_flags(match_object, text):
     possible_flags = match_object.findall(text)
     return possible_flags
 
+def run_binwalk(filename):
+    """Attempts to extract hidden files with 'binwalk -Me FILENAME'."""
+    cmd = f"binwalk -Me {filename}" # '-M' for 'matryoshka'
+    output = popen(cmd)
+    return output.read() # Return output
+
+def run_cat(filename):
+    """Dumps ascii representation of data with 'cat FILENAME'."""
+    cmd = f"cat {filename}"
+    output = popen(cmd)
+    return output.read() # Return output
+
+def run_exiftool(filename):
+    """Gets metadata with 'exiftool FILENAME'."""
+    cmd = f"exiftool {filename}"
+    output = popen(cmd)
+    return output.read() # Return output
+
+def run_steghide_extract(filename, password="''"):
+    """Extracts using 'steghide extract -sf FILENAME -p PASSPHRASE'."""
+    # Steghide command
+    cmd = f"steghide extract -sf {filename} -p {password}"
+    output = popen(cmd)
+    return output.read() # Return output
+
+def run_strings(filename):
+    """Dump strings found in file with 'strings FILENAME'."""
+    cmd = f"strings {filename}"
+    output = popen(cmd)
+    return output.read() # Return output
+
+def run_zsteg(filename):
+    """Checks for LSB encoding with 'zsteg -a FILENAME'."""
+    cmd = f"zsteg -a {filename}"
+    output = popen(cmd)
+    return output.read() # Return output
 
 class FileClass:
     """
@@ -92,6 +112,9 @@ class FileClass:
         self.filename = filename
         self.file_description = magic.from_file(filename)
 
+    def check_setup(self):
+        check_sudo()
+        check_file_exists(self.filename)
 
 def main():
     print(ascii_art)
