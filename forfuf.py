@@ -30,6 +30,24 @@ ascii_art = """
 class NotSudo(Exception):
     pass
 
+def append_to_log(text):
+    """Take text and append it to log, then append newline and many “=”s."""
+    with open('forfuf_log.txt', 'a') as f:
+        f.write(text + "\n==========================")
+
+def extract_with_steghide(filename, password="''"):
+    cmd = f"steghide extract -sf {filename} -p {password}"
+    output = popen(cmd)
+    return output.read()
+
+def get_metadata(filename):
+    cmd = f"exiftool {filename}"
+    output = popen(cmd)
+    return output.read()
+
+def get_strings():
+    """"""
+
 def check_sudo():
     """Check if program is being run as root."""
     # Raise error if not run with uid 0 (root)
