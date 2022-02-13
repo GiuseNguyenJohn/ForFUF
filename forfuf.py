@@ -30,29 +30,16 @@ ascii_art = """
 class NotSudo(Exception):
     pass
 
-def append_to_log(text):
-    """Take text and append it to log, then append newline and many “=”s."""
-    with open('forfuf_log.txt', 'a') as f:
-        f.write(text + "\n==========================")
-
-def extract_with_steghide(filename, password="''"):
-    cmd = f"steghide extract -sf {filename} -p {password}"
-    output = popen(cmd)
-    return output.read()
-
-def get_metadata(filename):
-    cmd = f"exiftool {filename}"
-    output = popen(cmd)
-    return output.read()
-
-def get_strings():
-    """"""
-
 def check_sudo():
     """Check if program is being run as root."""
     # Raise error if not run with uid 0 (root)
     if getuid() != 0:
         raise NotSudo("This program is not being run with sudo permissions.")
+
+def append_to_log(text):
+    """Take text and append it to log, then append newline and many “=”s."""
+    with open('forfuf_log.txt', 'a') as f:
+        f.write(text + "\n==========================")
 
 def check_file_exists(filepath):
     """Check that the given file exists."""
@@ -63,12 +50,28 @@ def check_file_exists(filepath):
     else:
         return False
 
+def extract_with_steghide(filename, password="''"):
+    """Extracts using 'steghide extract -sf FILENAME -p PASSPHRASE'."""
+    # Steghide command
+    cmd = f"steghide extract -sf {filename} -p {password}"
+    output = popen(cmd)
+    return output.read()
+
+def get_metadata(filename):
+    """"""
+    cmd = f"exiftool {filename}"
+    output = popen(cmd)
+    return output.read()
+
 def get_regex_flag_format(regex_string):
     """Takes a string and returns a match object"""
     # Pattern of plaintext AND rot13 flag format
     pattern = f"{regex_string}|{codecs.encode(regex_string, 'rot13')}"
     match_object = re.compile(pattern)
     return match_object
+
+def get_strings(filename):
+    """Takes filename, """
 
 def parse_for_possible_flags(match_object, text):
     """
@@ -79,10 +82,6 @@ def parse_for_possible_flags(match_object, text):
     possible_flags = match_object.findall(text)
     return possible_flags
 
-def extract_with_steghide(filename, password=''):
-    """
-    Extracts using steghide extract -sf FILENAME -p PASSPHRASE. If 
-    """
 
 class FileClass:
     """
