@@ -23,7 +23,7 @@ Current IPTC Digest             : 0def9dc9a98ce8bc8abdd7b2c54c23f2
 Copyright Notice                : picoctf{1337}
 Application Record Version      : 4
 XMP Toolkit                     : Image::ExifTool 12.40
-Rights                          : copyright
+Rights                          : cvpbpgs{1337}
 Image Width                     : 2370
 Image Height                    : 1927
 Encoding Process                : Baseline DCT, Huffman coding
@@ -60,6 +60,15 @@ class ForfufTestCase(unittest.TestCase):
                                                     r"{0,2}o.{0,2}c.{0,2}"
                                                     r"t.{0,2}f.{0,2}\{.*\}")
         correct_flag = "picoctf{1337}"
+        found_flag = forfuf.parse_for_possible_flags(match_object, text_for_test_parsing)
+        self.assertIn(correct_flag, found_flag)
+
+    def test_rot13_detection(self):
+        """Will match object and exif data input return flag?"""
+        match_object = forfuf.get_regex_flag_format(r"p.{0,2}i.{0,2}c."
+                                                    r"{0,2}o.{0,2}c.{0,2}"
+                                                    r"t.{0,2}f.{0,2}\{.*\}")
+        correct_flag = "cvpbpgs{1337}"
         found_flag = forfuf.parse_for_possible_flags(match_object, text_for_test_parsing)
         self.assertIn(correct_flag, found_flag)
 
