@@ -19,15 +19,13 @@
 - [x] check if given file exists
 - [x] store flag format, return match object (plaintext, rot13, base64)
 - [x] search for flag in text, return possible flags
-- [] store fake flag
-- [] determine filetype with magic module
-- [] take png/bmp filename and return zsteg output
-- [] create log in current directory
-- [] take text and append to log
+- [x] determine filetype with magic module
+- [x] take png/bmp filename and return zsteg output
+- [x] take text and append to log
 - [] take zip filename and unzip
-- [] take filename and extract with `binwalk -Me`, return output
-- [] take filename and return strings output
-- [] take filename and return exiftool output
-- [] take filename and default password of '', extract with password using steghide, return output
-- [] output magic bytes neatly
-- [] take hex and overwrite the file header
+- [x] take filename and extract with `binwalk -Me`, return output
+- [x] take filename and return strings output
+- [x] take filename and return exiftool output
+- [x] take filename and default password of '', extract with password using steghide, return output
+- [x] output magic bytes neatly
+- [x] take hex and overwrite the file header

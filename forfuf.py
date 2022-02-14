@@ -4,12 +4,12 @@
 Name: John Nguyen
 Contributors: Matt Sprengel
 Description: Automates basic checks for CTF forensics challenges
-Dependecies: binwalk, exiftool, hexdump, zsteg, strings, steghide
+Dependecies: binwalk, exiftool, zsteg, strings, steghide, xxd
 Tested: Python 3.9 on Kali Linux
 """
 
+import binascii
 import codecs
-from tabnanny import check
 import magic
 import re
 from argparse import ArgumentParser
@@ -66,6 +66,12 @@ def parse_for_possible_flags(match_object, text):
     possible_flags = match_object.findall(text)
     return possible_flags
 
+def read_file_header(filename):
+	"""Print neatly formatted first few bytes of file."""
+	output = popen(f'xxd -p {filename}').read(50)
+	formatted_bytes = ' '.join(output[x:x+2] for x in range(0, len(output), 2))
+	print(f"The first few bytes of '{filename}' are: {formatted_bytes}")
+
 def run_binwalk(filename):
     """Attempts to extract hidden files with 'binwalk -Me FILENAME'."""
     cmd = f"binwalk -Me {filename}" # '-M' for 'matryoshka'
@@ -103,6 +109,18 @@ def run_zsteg(filename):
     output = popen(cmd)
     return output.read() # Return output
 
+def write_file_header(filename, file_header):
+	"""
+	Takes string of hex and substitutes it in the hex data of
+	the given file, then writes hex data to new file called
+	'fixed_FILENAME'.
+	"""
+	# store plain hex of file, excluding the first few bytes
+	rest_of_file = popen(f"cat {filename} | xxd -p -s {len(file_header) // 2}").read().replace('\n','')
+	with open(f'fixed_{filename}', 'wb') as f:
+		fixed_file = binascii.unhexlify(file_header + rest_of_file)
+		f.write(fixed_file) # write to new file
+
 class FileClass:
     """
     A class to describe a given file.
@@ -122,6 +140,7 @@ def main():
                                         "to automate basic checks"
                                         "for CTF forensics challenges")
     parser.add_argument('--flag-format', type=str, help='regex flag pattern')
+    parser.add_argument
     args = parser.parse_args()
 
 if __name__ == '__main__':

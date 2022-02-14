@@ -2,13 +2,21 @@
 
 A command-line utility to automate the checking and solving of low hanging fruit for CTF forensic challenges.
 
-<!-- TODO: add bash 1-liner to install dependencies -->
 ## Setup:
 ### Download required packages: 
-```yes | sudo apt install binwalk exiftool steghide bsdmainutils && sudo gem install zsteg```
-
+```
+yes | sudo apt install binwalk exiftool steghide bsdmainutils && sudo gem install zsteg
+```
+### Download Stegsolve:
+```
+wget http://www.caesum.com/handbook/Stegsolve.jar -O stegsolve.jar
+chmod +x stegsolve.jar
+sudo mv ./stegsolve.jar /bin/stegsolve
+```
 ### Clone repository:
-```git clone https://github.com/Magicks52/ForFUF.git```
+```
+git clone https://github.com/Magicks52/ForFUF.git
+```
 
 ## Usage:
 ```
