@@ -15,7 +15,7 @@
 
 
 ### TODO:   
-- [x] Add one-liner in README to install all dependencies in bash
+- [x] add one-liner in README to install all dependencies in bash
 - [x] check if program ran with sudo
 - [x] check if given file exists
 - [x] store flag format, return match object (plaintext, rot13, base64)
@@ -30,4 +30,7 @@
 - [x] take filename and default password of '', extract with password using steghide, return output
 - [x] output magic bytes neatly
 - [x] take hex and overwrite the file header
-- 
+- [] in class 'FileClass':
+    - [] make method 'handle_png_and_bmp'
+    - [] make method 'handle_jpg'
+    - [] make method 'handle_zip
