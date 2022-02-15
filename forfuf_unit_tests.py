@@ -74,7 +74,7 @@ class ForfufTestCase(unittest.TestCase):
 
     def test_range_parsing(self):
         """Will match object and exif data input return flag?"""
-        match_object = forfuf.get_regex_flag_format(r"i.{0,2}c.{0,2}t.{0,2}f.{0,2}\{.*\}")
+        match_object = forfuf.get_regex_flag_format(r"p.{0,2}i.{0,2}c.{0,2}t.{0,2}f.{0,2}\{.*\}")
         correct_flag = "ictf{flag}"
         found_flag = forfuf.parse_for_possible_flags(match_object, text_for_test_parsing)
         self.assertIn(correct_flag, found_flag)
