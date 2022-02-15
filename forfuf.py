@@ -4,7 +4,7 @@
 Name: John Nguyen
 Contributors: Matt Sprengel
 Description: Automates basic checks for CTF forensics challenges
-Dependecies: cat, binwalk, exiftool, strings, steghide, stegsolve, xxd, zsteg
+Dependecies: binwalk, exiftool, zsteg, strings, steghide, xxd
 Tested: Python 3.9 on Kali Linux
 """
 
@@ -37,10 +37,11 @@ def check_sudo():
     if getuid() != 0:
         raise NotSudo("This program is not being run with sudo permissions.")
 
-def append_to_log(text):
+def append_to_log(section_title, text):
     """Take text and append it to log, then append newline and many “=”s."""
     with open('forfuf_log.txt', 'a') as f:
-        f.write(text + "\n==========================")
+        f.write(section_title.center(70, '=').replace(section_title,
+                                                    f' [ {section_title} ] '))
 
 def check_file_exists(filepath):
     """Check that the given file exists."""
@@ -99,10 +100,6 @@ def run_steghide_extract(filename, password="''"):
     output = popen(cmd)
     return output.read() # Return output
 
-def run_stegsolve():
-    """Run stegsolve from /bin/stegsolve."""
-    popen('/bin/stegsolve')
-
 def run_strings(filename):
     """Dump strings found in file with 'strings FILENAME'."""
     cmd = f"strings {filename}"
@@ -142,20 +139,6 @@ class FileClass:
 
     def handle_png_and_bmp(self):
         """Runs all applicable checks on png/bmp file."""
-        print('Running cat...')
-        append_to_log(run_cat(self.filename))
-        print('Running strings...')
-        append_to_log(run_strings(self.filename))
-        print('Running exiftool...')
-        append_to_log(run_exiftool(self.filename))
-        print('Running binwalk...')
-        append_to_log(run_binwalk(self.filename))
-        print('Running zsteg...')
-        append_to_log(run_zsteg(self.filename))
-        print('Running steghide...')
-        append_to_log(run_steghide_extract(self.filename))
-
-
 
 def main():
     print(ascii_art)
