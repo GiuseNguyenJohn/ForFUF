@@ -49,6 +49,8 @@ def check_file_exists(filepath):
     if not exists(filepath):
         print(f'"{filepath}" not found!')
         exit(1)
+    else:
+        return True
 
 def get_regex_flag_format(regex_string):
     """Takes a string and returns a match object"""
