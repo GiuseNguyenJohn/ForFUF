@@ -6,8 +6,7 @@
     - how to check for run with sudo? uid? $USER env var?
 - automatic flag detection?
 - run 'file' linux tool to determine type of file
-- check and fix corrupt file headers (autofix somehow? like if first 2 bytes
-    are like a PNG, say 'png detected, fix header? (Y/N) )
+- check and fix corrupt file headers
 - check LSB steg with zsteg
 - extract strings and search for flag
 - use regex to identify when flag characters are all grouped together within
@@ -15,7 +14,7 @@
 
 
 ### TODO:   
-- [x] Add one-liner in README to install all dependencies in bash
+- [] Add one-liner in README to install all dependencies in bash
 - [x] check if program ran with sudo
 - [x] check if given file exists
 - [x] store flag format, return match object (plaintext, rot13, base64)
