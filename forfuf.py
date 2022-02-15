@@ -229,6 +229,8 @@ def main():
     args = parser.parse_args()
     # Create instance of FileClass
     file = FileClass(args.filename, args.password if args.password else None)
+    # Check if setup is good to go
+    file.check_setup()
     # Determine which checks to run
     if 'data' in file.file_description.lower(): # check for corrupt header
         file.handle_corrupt_header()
