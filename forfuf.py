@@ -16,8 +16,6 @@ from argparse import ArgumentParser
 from os.path import exists
 from os import popen, getcwd, getuid
 
-from more_itertools import unzip
-
 
 ascii_art = """
  ________ ________  ________  ________ ___  ___  ________ 
@@ -25,7 +23,7 @@ ascii_art = """
 \ \  \__/\ \  \|\  \ \  \|\  \ \  \__/\ \  \\\\\  \ \  \__/ 
  \ \   __\\\\ \  \\\\\  \ \   _  _\ \   __\\\\ \  \\\\\  \ \   __\\
   \ \  \_| \ \  \\\\\  \ \  \\\\  \\\\ \  \_| \ \  \\\\\  \ \  \_|
-   \ \__\   \ \_______\ \__\\\\ _\\\\ \__\   \ \_______\ \__\ 
+   \ \__\   \ \_______\ \__\\\\ _\\\\ \__\   \ \_______\ \__\\ 
     \|__|    \|_______|\|__|\|__|\|__|    \|_______|\|__| 
 """
 
@@ -78,7 +76,7 @@ def read_file_header(filename):
 	"""Print neatly formatted first few bytes of file."""
 	output = popen(f'xxd -p {filename}').read(50)
 	formatted_bytes = ' '.join(output[x:x+2] for x in range(0, len(output), 2))
-	print(f"The first few bytes of '{filename}' are: {formatted_bytes}")
+	print(f"Corrupt header - the first few bytes of '{filename}' are: {formatted_bytes}")
 
 def run_binwalk(filename):
     """Attempts to extract hidden files with 'binwalk -Me FILENAME'."""
@@ -178,7 +176,7 @@ class FileClass:
             append_to_log('steghide', run_steghide_extract(self.filename))
         # If input is 'y' or 'yes', run stegsolve
         ask_stegsolve = input('Run stegsolve? (y/n)')
-        if ask_stegsolve == 'y' or 'yes':
+        if ask_stegsolve.lower() == 'y' or 'yes':
             append_to_log('stegsolve', run_stegsolve())
         else:
             exit(0)             
@@ -207,22 +205,23 @@ class FileClass:
         a copy with new header or does nothing.
         """
         read_file_header(self.filename)
-        ask_fix_header = input('File header is corrupt. Input new file'
-                                'header as hex string here, or "n" to do'
-                                'nothing: ')
-        
+        ask_fix_header = input('Input new file header as hex string'
+                                'here, or "n" to do nothing: ')
+        if ask_fix_header.lower() != 'n':
+            print(f'Fixing file header of {self.filename}...')
+            write_file_header(self.filename, ask_fix_header)
+        exit(0)
 
 def main():
     print(ascii_art)
     parser = ArgumentParser(description="A command-line tool for"
                                         "to automate basic checks"
                                         "for CTF forensics challenges")
-    parser.add_argument('FILENAME', type=str, required=True, help='file to analyze')
+    parser.add_argument('FILENAME', type=str, help='file to analyze')
     parser.add_argument('-f', '--flag-format', type=str, help='regex flag pattern')
     parser.add_argument('-p', '--password', type=str, help='password for steghide')
-    parser.add_argument('-h', '--flag-format', type=str, help='regex flag pattern')
-
     args = parser.parse_args()
+    print(args)
 
 if __name__ == '__main__':
     main()
