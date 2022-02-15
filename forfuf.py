@@ -4,7 +4,7 @@
 Name: John Nguyen
 Contributors: Matt Sprengel
 Description: Automates basic checks for CTF forensics challenges
-Dependecies: binwalk, exiftool, zsteg, strings, steghide, xxd
+Dependecies: cat, binwalk, exiftool, strings, steghide, stegsolve, xxd, zsteg
 Tested: Python 3.9 on Kali Linux
 """
 
@@ -99,6 +99,10 @@ def run_steghide_extract(filename, password="''"):
     output = popen(cmd)
     return output.read() # Return output
 
+def run_stegsolve():
+    """Run stegsolve from /bin/stegsolve."""
+    popen('/bin/stegsolve')
+
 def run_strings(filename):
     """Dump strings found in file with 'strings FILENAME'."""
     cmd = f"strings {filename}"
@@ -138,6 +142,20 @@ class FileClass:
 
     def handle_png_and_bmp(self):
         """Runs all applicable checks on png/bmp file."""
+        print('Running cat...')
+        append_to_log(run_cat(self.filename))
+        print('Running strings...')
+        append_to_log(run_strings(self.filename))
+        print('Running exiftool...')
+        append_to_log(run_exiftool(self.filename))
+        print('Running binwalk...')
+        append_to_log(run_binwalk(self.filename))
+        print('Running zsteg...')
+        append_to_log(run_zsteg(self.filename))
+        print('Running steghide...')
+        append_to_log(run_steghide_extract(self.filename))
+
+
 
 def main():
     print(ascii_art)
