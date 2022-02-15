@@ -28,12 +28,17 @@ git clone https://github.com/Magicks52/ForFUF.git
    \ \__\   \ \_______\ \__\\ _\\ \__\   \ \_______\ \__\ 
     \|__|    \|_______|\|__|\|__|\|__|    \|_______|\|__| 
 
-usage: forfuf.py [-h] [--flag-format FLAG_FORMAT]
+usage: ForFUF.py [-h] [-f FLAG_FORMAT] [-p PASSWORD] filename
 
 A command-line tool forto automate basic checksfor CTF forensics challenges
 
+positional arguments:
+  filename              file to analyze
+
 optional arguments:
   -h, --help            show this help message and exit
-  --flag-format FLAG_FORMAT
+  -f FLAG_FORMAT, --flag-format FLAG_FORMAT
                         regex flag pattern
+  -p PASSWORD, --password PASSWORD
+                        password for steghide
 ```
