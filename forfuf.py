@@ -134,6 +134,8 @@ class FileClass:
         check_sudo()
         check_file_exists(self.filename)
 
+    def 
+
 def main():
     print(ascii_art)
     parser = ArgumentParser(description="A command-line tool for"
