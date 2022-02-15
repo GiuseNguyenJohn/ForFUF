@@ -134,7 +134,8 @@ class FileClass:
         check_sudo()
         check_file_exists(self.filename)
 
-    def 
+    def handle_png_and_bmp(self):
+        """Runs all applicable checks on png/bmp file."""
 
 def main():
     print(ascii_art)
