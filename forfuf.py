@@ -116,7 +116,7 @@ def write_file_header(filename, file_header):
 	'fixed_FILENAME'.
 	"""
 	# store plain hex of file, excluding the first few bytes
-	rest_of_file = popen(f"cat {filename} | xxd -p -s {len(file_header) // 2}").read().replace('\n','')
+	rest_of_file = popen(f"xxd -p -s {len(file_header) // 2} {filename}").read().replace('\n','')
 	with open(f'fixed_{filename}', 'wb') as f:
 		fixed_file = binascii.unhexlify(file_header + rest_of_file)
 		f.write(fixed_file) # write to new file
