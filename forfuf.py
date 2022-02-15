@@ -56,6 +56,11 @@ def check_file_exists(filepath):
     else:
         return True
 
+def get_formatted_log():
+    """Return log stripped of all newline characters."""
+    with open('forfuf_log.txt', 'r') as f:
+        return f.read().replace('\n', '')
+
 def get_regex_flag_format(regex_string):
     """Takes a string and returns a match object"""
     # Pattern of plaintext AND rot13 flag format
@@ -76,7 +81,8 @@ def read_file_header(filename):
 	"""Print neatly formatted first few bytes of file."""
 	output = popen(f'xxd -p {filename}').read(50)
 	formatted_bytes = ' '.join(output[x:x+2] for x in range(0, len(output), 2))
-	print(f"Corrupt header - the first few bytes of '{filename}' are: {formatted_bytes}")
+	print("Header is probably corrupt - the first few bytes"
+            f"of '{filename}' are: {formatted_bytes}")
 
 def run_binwalk(filename):
     """Attempts to extract hidden files with 'binwalk -Me FILENAME'."""
@@ -222,9 +228,30 @@ def main():
     parser.add_argument('-p', '--password', type=str, help='password for steghide')
     args = parser.parse_args()
     # Create instance of FileClass
-    file = FileClass(args.filename, args.password if args.password else )
+    file = FileClass(args.filename, args.password if args.password else None)
     # Determine which checks to run
-    
+    if 'data' in file.file_description.lower(): # check for corrupt header
+        file.handle_corrupt_header()
+    elif 'jpg' or 'jpeg' in file.file_description.lower(): # check if file is jpg/jpeg
+        file.handle_jpg_and_jpeg()
+    elif 'png' or 'bmp' in file.file_description.lower(): # check if file is png/bmp
+        file.handle_png_and_bmp()
+    elif 'zip archive' in file.file_description.lower(): # check if file is a zip
+        file.handle_zip()
+    else:
+        print(f"File description: {file.file_description}")
+        print("File format not supported.")
+        exit(1)
+    # Find flag in log if --flag-format is specified
+    if args.flag_format:
+        # Create flag match object
+        mo = get_regex_flag_format(args.flag_format)
+        # Parse log file 'forfuf_log.txt' for matching flags
+        log_text = get_formatted_log()
+        parse_for_possible_flags(mo, log_text)
+    else:
+        print("No flag format specified.")
+        exit(0)
 
 if __name__ == '__main__':
     main()
