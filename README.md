@@ -17,9 +17,9 @@ sudo mv ./stegsolve.jar /bin/stegsolve
 ```
 pip install python-magic
 ```
-### Clone repository:
+### Get forfuf.py:
 ```
-git clone https://github.com/Magicks52/ForFUF.git
+wget https://raw.githubusercontent.com/Magicks52/ForFUF/main/forfuf.py
 ```
 
 ## Usage:
