@@ -32,5 +32,5 @@
 - [x] take hex and overwrite the file header
 - [] in class 'FileClass':
     - [] make method 'handle_png_and_bmp'
-    - [] make method 'handle_jpg'
+    - [] make method 'handle_jpg_and_jpeg'
     - [] make method 'handle_zip
