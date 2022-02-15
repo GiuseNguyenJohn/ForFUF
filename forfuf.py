@@ -217,11 +217,14 @@ def main():
     parser = ArgumentParser(description="A command-line tool for"
                                         "to automate basic checks"
                                         "for CTF forensics challenges")
-    parser.add_argument('FILENAME', type=str, help='file to analyze')
+    parser.add_argument('filename', type=str, help='file to analyze')
     parser.add_argument('-f', '--flag-format', type=str, help='regex flag pattern')
     parser.add_argument('-p', '--password', type=str, help='password for steghide')
     args = parser.parse_args()
-    print(args)
+    # Create instance of FileClass
+    file = FileClass(args.filename, args.password if args.password else )
+    # Determine which checks to run
+    
 
 if __name__ == '__main__':
     main()
