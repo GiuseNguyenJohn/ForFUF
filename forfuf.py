@@ -61,11 +61,13 @@ def get_formatted_log():
     with open('forfuf_log.txt', 'r') as f:
         return f.read().replace('\n', '')
 
-def get_regex_flag_format(regex_string):
-    """Takes a string and returns a match object"""
-    # Pattern of plaintext AND rot13 flag format
-    pattern = f"{regex_string}|{codecs.encode(regex_string, 'rot13')}"
-    match_object = re.compile(pattern)
+def get_regex_flag_formats(regex_string, start_flag):
+    """Takes a string and returns plaintext, rot13, and base64 match objects."""
+    # Pattern of plaintext, rot13, and base64
+    plaintext_pattern = re.compile(regex_string)
+    rot13_pattern = re.compile(codecs.encode(regex_string, 'rot13'))
+    base64_first_three = codecs.encode(start_flag, 'base64')
+    base64_pattern = re.compile(f"{base64_first_three[:3]}[A-Za-z0-9+\]+[=]{0,2}")
     return match_object
 
 def parse_for_possible_flags(match_object, text):
@@ -226,6 +228,7 @@ def main():
     parser.add_argument('filename', type=str, help='file to analyze')
     parser.add_argument('-f', '--flag-format', type=str, help='regex flag pattern')
     parser.add_argument('-p', '--password', type=str, help='password for steghide')
+    parser.add_argument('-s', '--start-flag', type=str, help='prefix of flag (ex. "picoctf{")')
     args = parser.parse_args()
     # Create instance of FileClass
     file = FileClass(args.filename, args.password if args.password else None)
