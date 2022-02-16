@@ -235,14 +235,14 @@ def main():
     # Check if setup is good to go
     file.check_setup()
     # Determine which checks to run
-    if 'data' in file.file_description.lower(): # check for corrupt header
-        file.handle_corrupt_header()
-    elif 'jpg' or 'jpeg' in file.file_description.lower(): # check if file is jpg/jpeg
+    if 'jpg' or 'jpeg' in file.file_description.lower(): # check if file is jpg/jpeg
         file.handle_jpg_and_jpeg()
     elif 'png' or 'bmp' in file.file_description.lower(): # check if file is png/bmp
         file.handle_png_and_bmp()
     elif 'zip archive' in file.file_description.lower(): # check if file is a zip
         file.handle_zip()
+    elif 'data' in file.file_description.lower(): # check for corrupt header
+        file.handle_corrupt_header()
     else:
         print(f"File description: {file.file_description}")
         print("File format not supported.")
