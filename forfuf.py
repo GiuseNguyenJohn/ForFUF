@@ -65,10 +65,10 @@ def get_regex_flag_formats(regex_string, start_flag):
     """Takes a string and returns plaintext, rot13, and base64 match objects."""
     # Pattern of plaintext, rot13, and base64
     plaintext_pattern = re.compile(regex_string)
-    rot13_pattern = re.compile(codecs.encode(regex_string, 'rot13'))
+    rot13_pattern = re.compile(codecs.encode(regex_string, 'rot-13'))
     base64_first_three = codecs.encode(start_flag, 'base64')
-    base64_pattern = re.compile(f"{base64_first_three[:3]}[A-Za-z0-9+\]+[=]{0,2}")
-    return match_object
+    base64_pattern = re.compile(f"{base64_first_three[:3]}[A-Za-z0-9+\][=]{0,2}")
+    return plaintext_pattern, rot13_pattern, base64_pattern
 
 def parse_for_possible_flags(match_object, text):
     """
@@ -248,12 +248,28 @@ def main():
         print("File format not supported.")
         exit(1)
     # Find flag in log if --flag-format is specified
-    if args.flag_format:
-        # Create flag match object
-        mo = get_regex_flag_format(args.flag_format)
+    if args.flag_format and args.start_flag:
+        # Create flag match objects
+        plain_mo, rot13_mo, base64_mo = get_regex_flag_format(args.flag_format, args.start_flag)
         # Parse log file 'forfuf_log.txt' for matching flags
         log_text = get_formatted_log()
-        parse_for_possible_flags(mo, log_text)
+        plaintext_flags = parse_for_possible_flags(plain_mo, log_text)
+        rot13_flags = parse_for_possible_flags(rot13_mo, log_text)
+        base64_flags = parse_for_possible_flags(base64_mo, log_text)
+        # print flags
+        if plaintext_flags:
+            for flag in plaintext_flags:
+                print(f'Possible plaintext flag: {flag}')
+        if rot13_flags:
+            for flag in rot13_flags:
+                print(f'Possible rot13 flag: {flag}')
+                print(f"\tDECODED: {codecs.decode(flag, 'rot-13')}")
+        if base64_flags:
+            for flag in base64_flags:
+                print(f'Possible base64 flag: {flag}')
+                print(f"\tDECODED: {codecs.decode(flag, 'base64')}")
+        if not (plaintext_flags or rot13_flags or base64_flags):
+            print("No flags found.")
     else:
         print("No flag format specified.")
         exit(0)
