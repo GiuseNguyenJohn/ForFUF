@@ -32,7 +32,7 @@ wget https://raw.githubusercontent.com/Magicks52/ForFUF/main/forfuf.py
    \ \__\   \ \_______\ \__\\ _\\ \__\   \ \_______\ \__\ 
     \|__|    \|_______|\|__|\|__|\|__|    \|_______|\|__| 
 
-usage: ForFUF.py [-h] [-f FLAG_FORMAT] [-p PASSWORD] filename
+usage: forfuf.py [-h] [-f FLAG_FORMAT] [-p PASSWORD] [-s START_FLAG] filename
 
 A command-line tool forto automate basic checksfor CTF forensics challenges
 
@@ -45,4 +45,6 @@ optional arguments:
                         regex flag pattern
   -p PASSWORD, --password PASSWORD
                         password for steghide
+  -s START_FLAG, --start-flag START_FLAG
+                        prefix of flag (ex. "picoctf{")
 ```
