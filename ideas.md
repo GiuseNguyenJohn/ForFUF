@@ -28,4 +28,5 @@
 - [] take zip filename and unzip
 - [] take filename and extract with `binwalk -Me`, return output
 - [] take filename and return strings output
-- 
+- iterencode to test all 26 ROT's instead of just rot13
+- make some functions work in python instead of using dependencies
