@@ -72,7 +72,7 @@ def get_regex_flag_formats(regex_string, start_flag):
 
 def parse_for_possible_flags(match_object, text):
     """
-    Uses regex object from 'get_regex_flag_format' to search
+    Uses regex object from 'get_regex_flag_formats' to search
     text for flag pattern
     """
     # Get list of possible flags and return the list
@@ -250,7 +250,7 @@ def main():
     # Find flag in log if --flag-format is specified
     if args.flag_format and args.start_flag:
         # Create flag match objects
-        plain_mo, rot13_mo, base64_mo = get_regex_flag_format(args.flag_format, args.start_flag)
+        plain_mo, rot13_mo, base64_mo = get_regex_flag_formats(args.flag_format, args.start_flag)
         # Parse log file 'forfuf_log.txt' for matching flags
         log_text = get_formatted_log()
         plaintext_flags = parse_for_possible_flags(plain_mo, log_text)
