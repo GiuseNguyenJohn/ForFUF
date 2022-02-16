@@ -8,6 +8,7 @@ Dependecies: cat, binwalk, exiftool, strings, steghide, stegsolve, unzip, xxd, z
 Tested: Python 3.9 on Kali Linux
 """
 
+import base64
 import binascii
 import codecs
 import magic
@@ -66,7 +67,7 @@ def get_regex_flag_formats(regex_string, start_flag):
     # Pattern of plaintext, rot13, and base64
     plaintext_pattern = re.compile(regex_string)
     rot13_pattern = re.compile(codecs.encode(regex_string, 'rot-13'))
-    base64_first_three = codecs.encode(bytes(start_flag, 'utf-8'), 'base64')
+    base64_first_three = base64.b64encode(bytes(start_flag, 'utf-8'))
     base64_pattern = re.compile(f"{base64_first_three[:3]}[A-Za-z0-9+\][=]{0,2}")
     return plaintext_pattern, rot13_pattern, base64_pattern
 
@@ -267,7 +268,7 @@ def main():
         if base64_flags:
             for flag in base64_flags:
                 print(f'Possible base64 flag: {flag}')
-                print(f"\tDECODED: {codecs.decode(flag, 'base64')}")
+                print(f"\tDECODED: {base64.b64decode(bytes(flag, 'utf-8'))}")
         if not (plaintext_flags or rot13_flags or base64_flags):
             print("No flags found.")
     else:
