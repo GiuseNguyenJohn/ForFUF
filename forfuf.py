@@ -164,9 +164,9 @@ class FileClass:
 
     def handle_jpg_and_jpeg(self):
         """Runs all applicable checks on jpg/jpeg file."""
-        # cat
-        print('Running cat...')
-        append_to_log('cat', run_cat(self.filename))
+        # cat (broken for now)
+        # print('Running cat...')
+        # append_to_log('cat', run_cat(self.filename))
         # strings
         print('Running strings...')
         append_to_log('strings', run_strings(self.filename))
