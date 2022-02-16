@@ -185,7 +185,7 @@ class FileClass:
         # If input is 'y' or 'yes', run stegsolve
         ask_stegsolve = input('Run stegsolve? (y/n)')
         if ask_stegsolve.lower() == 'y' or 'yes':
-            append_to_log('stegsolve', run_stegsolve())
+            run_stegsolve()
         else:
             exit(0)             
     
