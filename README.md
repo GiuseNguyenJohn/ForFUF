@@ -12,6 +12,10 @@ git clone https://github.com/Magicks52/ForFUF.git && cd ./ForFUF
 ```
 sudo ./install.sh
 ```
+### Mark 'forfuf.py' as executable:
+```
+chmod +x forfuf.py
+```
 ### Example:
 ```
 sudo ./forfuf.py -f "p.{0,2}i.{0,2}c.{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}\{.*\}" -s "picoCTF{" exiftool_base64.jpg
