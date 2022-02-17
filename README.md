@@ -4,25 +4,14 @@ A command-line utility to automate the checking and solving of low hanging fruit
 
 _Note: Project still in development stage_
 ## Setup:
-### Download required packages: 
+### Clone Repository:
 ```
-yes | sudo apt install binwalk exiftool steghide bsdmainutils libmagic1 && sudo gem install zsteg
+git clone https://github.com/Magicks52/ForFUF.git && cd ./ForFUF
 ```
-### Download Stegsolve:
+### Run 'install.sh': 
 ```
-wget http://www.caesum.com/handbook/Stegsolve.jar -O stegsolve.jar
-chmod +x stegsolve.jar
-sudo mv ./stegsolve.jar /bin/stegsolve
+sudo ./install.sh
 ```
-### Download python-magic:
-```
-pip install python-magic
-```
-### Get forfuf.py:
-```
-wget https://raw.githubusercontent.com/Magicks52/ForFUF/main/forfuf.py
-```
-
 ## Usage:
 ```
  ________ ________  ________  ________ ___  ___  ________ 
@@ -43,7 +32,7 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -f FLAG_FORMAT, --flag-format FLAG_FORMAT
-                        regex flag pattern
+                        regex flag pattern (ex. "p.{0,2}i.{0,2}c.{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}\{.*\}")
   -p PASSWORD, --password PASSWORD
                         password for steghide
   -s START_FLAG, --start-flag START_FLAG
