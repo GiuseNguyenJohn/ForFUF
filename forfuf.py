@@ -27,14 +27,12 @@ ascii_art = """
     \|__|    \|_______|\|__|\|__|\|__|    \|_______|\|__| 
 """
 
-class NotSudo(Exception):
-    pass
-
 def check_sudo():
     """Check if program is being run as root."""
     # Raise error if not run with uid 0 (root)
     if getuid() != 0:
-        raise NotSudo("This program is not being run with sudo permissions.")
+        print("This program is not being run with sudo permissions.")
+        exit(1)
 
 def append_to_log(section_title, text):
     """Append given heading and text to 'forfuf_log.txt'."""
@@ -244,10 +242,13 @@ def main():
     file.check_setup()
     # Determine which checks to run
     if 'zip archive' in file.file_description.lower(): # check if file is a zip
+        print("ZIP archive detected.")
         file.handle_zip()
     elif 'jpg' or 'jpeg' in file.file_description.lower(): # check if file is jpg/jpeg
+        print("JPG/JPEG file detected.")
         file.handle_jpg_and_jpeg()
     elif 'png' or 'bmp' in file.file_description.lower(): # check if file is png/bmp
+        print("PNG/BMP file detected.")
         file.handle_png_and_bmp()
     elif file.file_description.lower().startswith('data'): # check for corrupt header
         file.handle_corrupt_header()

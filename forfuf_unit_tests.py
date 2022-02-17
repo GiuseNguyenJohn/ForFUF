@@ -48,15 +48,17 @@ class ForfufTestCase(unittest.TestCase):
         plaintext_mo, rot_13_mo, base64_mo = forfuf.get_regex_flag_format("p.{0,2}i.{0,2}c"
                 ".{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}{.*}", "picoCTF{")
         # correct flags
-        correct_plaintext_flag = "picoctf{1337}"
-        correct_rot_13_flag = "cvpbpgs{1337}"
-        correct_base64_flag = "cGljb2N0ZnsxMzM3fQ== " # space at the end because regex will match space too
+        correct_plaintext_flag = ["picoctf{1337}"]
+        correct_rot_13_flag = ["cvpbpgs{1337}"]
+        correct_base64_flag = ["cGljb2N0ZnsxMzM3fQ== "] # space at the end because regex will match space too
         # found flags
         plaintext_flags = parse_for_possible_flags(plaintext_mo, text_for_test_parsing)
         rot_13_flags = parse_for_possible_flags(rot_13_mo, text_for_test_parsing)
         base64_flags = parse_for_possible_flags(base64_mo, text_for_test_parsing)
         # compare found flags to correct ones
-        self.assertIn(, found_flag)
+        self.assertEquals(correct_plaintext_flag, plaintext_flags)
+        self.assertEquals(correct_rot_13_flag, rot_13_flags)
+        self.assertEquals(correct_base64_flag, base64_flags)
 
 if __name__ == '__main__':
     unittest.main()
