@@ -193,7 +193,7 @@ class FileClass:
         if ask_stegsolve.lower() == 'y' or 'yes':
             run_stegsolve()
         else:
-            exit(0)             
+            pass
     
     def handle_png_and_bmp(self):
         """Runs all applicable checks on png/bmp file."""
@@ -249,7 +249,7 @@ def main():
         file.handle_jpg_and_jpeg()
     elif 'png' or 'bmp' in file.file_description.lower(): # check if file is png/bmp
         file.handle_png_and_bmp()
-    elif 'data' in file.file_description.lower(): # check for corrupt header
+    elif file.file_description.lower().startswith('data'): # check for corrupt header
         file.handle_corrupt_header()
     else:
         print(f"File description: {file.file_description}")
