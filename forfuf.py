@@ -17,7 +17,6 @@ from argparse import ArgumentParser
 from os.path import exists
 from os import popen, getcwd, getuid
 
-
 ascii_art = """
  ________ ________  ________  ________ ___  ___  ________ 
 |\  _____\\\\   __  \|\   __  \|\  _____\\\\  \|\  \|\  _____\\
@@ -27,7 +26,6 @@ ascii_art = """
    \ \__\   \ \_______\ \__\\\\ _\\\\ \__\   \ \_______\ \__\\ 
     \|__|    \|_______|\|__|\|__|\|__|    \|_______|\|__| 
 """
-
 
 class NotSudo(Exception):
     pass
@@ -68,7 +66,7 @@ def get_regex_flag_formats(regex_string, start_flag):
     plaintext_pattern = re.compile(regex_string)
     rot13_pattern = re.compile(codecs.encode(regex_string, 'rot-13'))
     base64_first_three = base64.b64encode(bytes(start_flag, 'utf-8')).decode()
-    base64_pattern = re.compile(f"{base64_first_three[0:3]}[+\\A-Za-z0-9]+[=]{{0,2}}\s")
+    base64_pattern = re.compile(f"{base64_first_three[0:3]}[+\\\\A-Za-z0-9]+[=]{{0,2}}\s")
     return plaintext_pattern, rot13_pattern, base64_pattern
 
 def parse_for_possible_flags(match_object, text):
@@ -267,10 +265,6 @@ def main():
                 print(f"\tDECODED: {codecs.decode(flag, 'rot-13')}")
         if base64_flags:
             for flag in base64_flags:
-                # make base64 flag a multiple of 4
-                
-                # print base64 flag
-                breakpoint()
                 print(f'Possible base64 flag: {flag}')
                 print(f"\tDECODED: {base64.b64decode(bytes(flag, 'utf-8')).decode()}")
         if not (plaintext_flags or rot13_flags or base64_flags):
