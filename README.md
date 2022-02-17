@@ -2,6 +2,7 @@
 
 A command-line utility to automate the checking and solving of low hanging fruit for CTF forensic challenges.
 
+_Note: Project still in development stage_
 ## Setup:
 ### Download required packages: 
 ```
@@ -34,7 +35,7 @@ wget https://raw.githubusercontent.com/Magicks52/ForFUF/main/forfuf.py
 
 usage: forfuf.py [-h] [-f FLAG_FORMAT] [-p PASSWORD] [-s START_FLAG] filename
 
-A command-line tool forto automate basic checksfor CTF forensics challenges
+A command-line tool to automate basic checksfor CTF forensics challenges
 
 positional arguments:
   filename              file to analyze
