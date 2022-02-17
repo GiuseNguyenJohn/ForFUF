@@ -190,8 +190,6 @@ class FileClass:
         ask_stegsolve = input('Run stegsolve? (y/n)')
         if ask_stegsolve.lower() == 'y' or ask_stegsolve.lower() == 'yes':
             run_stegsolve()
-        else:
-            exit(0)
     
     def handle_png_and_bmp(self):
         """Runs all applicable checks on png/bmp file."""
@@ -209,7 +207,7 @@ class FileClass:
         append_to_log('unzip', unzip_output)
         if 'password' in unzip_output:
             print(f'{self.filename} is password protected!')
-        exit(1)
+        exit(0)
 
     def handle_corrupt_header(self):
         """
@@ -236,8 +234,11 @@ def main():
     parser.add_argument('-p', '--password', type=str, help='password for steghide')
     parser.add_argument('-s', '--start-flag', type=str, help='prefix of flag (ex. "picoctf{")')
     args = parser.parse_args()
-    # Create instance of FileClass
-    file = FileClass(args.filename, args.password if args.password else None)
+    # try to create instance of FileClass
+    try:
+        file = FileClass(args.filename, args.password if args.password else None)
+    except FileNotFoundError:
+        print(f"No such file: '{args.filename}'")
     # Check if setup is good to go
     file.check_setup()
     # Determine which checks to run
