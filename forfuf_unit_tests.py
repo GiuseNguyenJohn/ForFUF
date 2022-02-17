@@ -57,10 +57,10 @@ class ForfufTestCase(unittest.TestCase):
         rot_13_flags = forfuf.parse_for_possible_flags(rot_13_mo, text_for_test_parsing)
         base64_flags = forfuf.parse_for_possible_flags(base64_mo, text_for_test_parsing)
         # compare found flags to correct ones
-        self.assertEquals(correct_plaintext_flag, plaintext_flags[0])
-        self.assertEquals(correct_range_flag, plaintext_flags[1])
-        self.assertEquals(correct_rot_13_flag, rot_13_flags)
-        self.assertEquals(correct_base64_flag, base64_flags)
+        self.assertEqual(correct_plaintext_flag, plaintext_flags[0])
+        self.assertEqual(correct_range_flag, plaintext_flags[1])
+        self.assertEqual(correct_rot_13_flag, rot_13_flags)
+        self.assertEqual(correct_base64_flag, base64_flags)
 
 if __name__ == '__main__':
     unittest.main()
