@@ -268,7 +268,7 @@ def main():
         if base64_flags:
             for flag in base64_flags:
                 # make base64 flag a multiple of 4
-                flag = flag[0:-(len(flag) % 4)]
+                
                 # print base64 flag
                 breakpoint()
                 print(f'Possible base64 flag: {flag}')
