@@ -188,10 +188,10 @@ class FileClass:
             append_to_log('steghide', run_steghide_extract(self.filename))
         # If input is 'y' or 'yes', run stegsolve
         ask_stegsolve = input('Run stegsolve? (y/n)')
-        if ask_stegsolve.lower() == 'y' or 'yes':
+        if ask_stegsolve.lower() == 'y' or ask_stegsolve.lower() == 'yes':
             run_stegsolve()
         else:
-            pass
+            exit(0)
     
     def handle_png_and_bmp(self):
         """Runs all applicable checks on png/bmp file."""
@@ -250,7 +250,7 @@ def main():
     elif 'png' or 'bmp' in file.file_description.lower(): # check if file is png/bmp
         print("PNG/BMP file detected.")
         file.handle_png_and_bmp()
-    elif file.file_description.lower().startswith('data'): # check for corrupt header
+    elif file.file_description.lower() == 'data': # check for corrupt header
         file.handle_corrupt_header()
     else:
         print(f"File description: {file.file_description}")
