@@ -280,7 +280,7 @@ def main():
         if not (plaintext_flags or rot13_flags or base64_flags):
             print("No flags found.")
     else:
-        print("No flag format specified.")
+        print("--flag-format (-f) or --start-flag (-s) not specified.")
         exit(0)
 
 if __name__ == '__main__':
