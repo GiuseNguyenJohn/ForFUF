@@ -240,15 +240,17 @@ def main():
     except FileNotFoundError:
         print(f"No such file: '{args.filename}'")
     # Check if setup is good to go
-    file.check_setup()
-    # Determine which checks to run
-    if 'zip archive' in file.file_description.lower(): # check if file is a zip
+    # file.check_setup()
+    # check if file is a zip
+    if 'zip archive' in file.file_description.lower():
         print("ZIP archive detected.")
         file.handle_zip()
-    elif 'jpg' or 'jpeg' in file.file_description.lower(): # check if file is jpg/jpeg
+    # check if file is a jpg/jpeg
+    elif 'jpg' in file.file_description.lower() or 'jpeg' in file.file_description.lower():
         print("JPG/JPEG file detected.")
         file.handle_jpg_and_jpeg()
-    elif 'png' or 'bmp' in file.file_description.lower(): # check if file is png/bmp
+    # check if file is png/bmp
+    elif 'png' in file.file_description.lower() or 'bmp' in file.file_description.lower():
         print("PNG/BMP file detected.")
         file.handle_png_and_bmp()
     elif file.file_description.lower() == 'data': # check for corrupt header
