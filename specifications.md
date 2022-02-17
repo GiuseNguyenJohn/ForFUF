@@ -66,8 +66,9 @@ so important guidelines to keep in mind are:
 - [x] take zip filename and unzip
 - [x] take filename and extract with `binwalk -Me`, return output
 - [x] take filename and return strings output
-- [] fix run_cat (it outputs 'invalid start byte' for photos)
+- [] fix run_cat (the `read()` method for the object created by `popen()`
+    outputs 'invalid start byte' for photos)
 - [] iterencode to test all 26 ROT's instead of just rot13
 - [] make some functions work in python instead of using dependencies
 - [] fix and update unit tests
-- [] tell user if zip file is password protected
+- [x] tell user if zip file is password protected
