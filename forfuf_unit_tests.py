@@ -17,7 +17,7 @@ File Type                       : JPEG
 File Type Extension             : jpg
 MIME Type                       : image/jpeg
 JFIF Version                    : 1.02
-Resolution Unit                 : .i.c.t.f.{.f.l.a.g.}.
+Resolution Unit                 : 
 X Resolution                    : 100
 Y Resolution                    : 100
 Current IPTC Digest             : 0def9dc9a98ce8bc8abdd7b2c54c23f2
@@ -29,7 +29,7 @@ Image Width                     : 2370
 Image Height                    : 1927
 Encoding Process                : Baseline DCT, Huffman coding
 Bits Per Sample                 : cGljb0NURnsxMzM3fQ==
-Color Components                : 3
+Color Components                : .p.i.c.o.C.T.F.{.f.l.a.g.}.
 Y Cb Cr Sub Sampling            : YCbCr4:4:4 (1 1)
 Image Size                      : 2370x1927
 Megapixels                      : 4.6
@@ -48,7 +48,8 @@ class ForfufTestCase(unittest.TestCase):
         plaintext_mo, rot_13_mo, base64_mo = forfuf.get_regex_flag_format("p.{0,2}i.{0,2}c"
                 ".{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}{.*}", "picoCTF{")
         # correct flags
-        correct_plaintext_flag = ["picoctf{1337}"]
+        correct_plaintext_flag = "picoctf{1337}"
+        correct_range_flag = "p.i.c.o.C.T.F.{.f.l.a.g.}"
         correct_rot_13_flag = ["cvpbpgs{1337}"]
         correct_base64_flag = ["cGljb2N0ZnsxMzM3fQ== "] # space at the end because regex will match space too
         # found flags
@@ -56,7 +57,8 @@ class ForfufTestCase(unittest.TestCase):
         rot_13_flags = parse_for_possible_flags(rot_13_mo, text_for_test_parsing)
         base64_flags = parse_for_possible_flags(base64_mo, text_for_test_parsing)
         # compare found flags to correct ones
-        self.assertEquals(correct_plaintext_flag, plaintext_flags)
+        self.assertEquals(correct_plaintext_flag, plaintext_flags[0])
+        self.assertEquals(correct_plaintext_flag, plaintext_flags[1])
         self.assertEquals(correct_rot_13_flag, rot_13_flags)
         self.assertEquals(correct_base64_flag, base64_flags)
 
