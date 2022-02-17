@@ -15,7 +15,7 @@ import magic
 import re
 from argparse import ArgumentParser
 from os.path import exists
-from os import popen, getcwd, getuid
+from os import popen, getuid, remove
 
 ascii_art = """
  ________ ________  ________  ________ ___  ___  ________ 
@@ -54,6 +54,13 @@ def check_file_exists(filepath):
         exit(1)
     else:
         return True
+
+def clear_log():
+    """Deletes log file if it exists."""
+    try:
+        remove('forfuf_log.txt')
+    except:
+        pass
 
 def get_formatted_log():
     """Return log stripped of all newline characters."""
@@ -221,6 +228,7 @@ class FileClass:
 
 def main():
     print(ascii_art)
+    clear_log()
     parser = ArgumentParser(description="A command-line tool for"
                                         "to automate basic checks"
                                         "for CTF forensics challenges")
