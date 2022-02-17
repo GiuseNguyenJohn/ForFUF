@@ -1,4 +1,4 @@
-## SPECIFICATION:
+## SPECIFICATIONS:
 Forfuf will be a Linux command-line tool to automate the running of 
 most standard tools used in CTF steganograpy and forensics. The general
 flow of the program involves:
@@ -37,6 +37,19 @@ If the file is a PNG/BMP, Forfuf should:
 - run all the checks for JPG/JPEG's
 - check zsteg output
 
+If the header is corrupt (detected by the word 'data' at the beginning), forfuf should:
+- output neatly formatted first few bytes of file
+- take optional new file header as a string of hex and 
+    make new file with patched file header
+
+### Style Guide:
+This style guide that should be referenced for this project is PEP 8,
+so important guidelines to keep in mind are:
+
+- put imports at the beginning of file
+- lines less than 80 characters long
+- use four spaces, no tabs
+- use docstrings at the beginning of functions and classes
 
 ## TODO:
 - [x] Add one-liner in README to install all dependencies in bash
