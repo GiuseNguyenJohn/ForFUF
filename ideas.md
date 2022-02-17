@@ -10,7 +10,7 @@
 - check LSB steg with zsteg
 - extract strings and search for flag
 - use regex to identify when flag characters are all grouped together within
-    a certain range (ex. C.T.F.{.F.L.A.G.} ) // Attempt for 'picoctf{}': p.{0,2}i.{0,2}c.{0,2}o.{0,2}c.{0,2}t.{0,2}f.{0,2}\{.*\}
+    a certain range (ex. C.T.F.{.F.L.A.G.} ) // Attempt for 'picoctf{}': p.{0,2}i.{0,2}c.{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}\{.*\}
 
 
 ### TODO:

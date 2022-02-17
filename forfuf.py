@@ -89,7 +89,7 @@ def read_file_header(filename):
 
 def run_binwalk(filename):
     """Attempts to extract hidden files with 'binwalk -Me FILENAME'."""
-    cmd = f"binwalk -Me {filename}" # '-M' for 'matryoshka'
+    cmd = f"binwalk -Me --run-as=root {filename}" # '-M' for 'matryoshka'
     output = popen(cmd)
     return output.read() # Return output
 
@@ -267,6 +267,10 @@ def main():
                 print(f"\tDECODED: {codecs.decode(flag, 'rot-13')}")
         if base64_flags:
             for flag in base64_flags:
+                # make base64 flag a multiple of 4
+                flag = flag[0:-(len(flag) % 4)]
+                # print base64 flag
+                breakpoint()
                 print(f'Possible base64 flag: {flag}')
                 print(f"\tDECODED: {base64.b64decode(bytes(flag, 'utf-8'))}")
         if not (plaintext_flags or rot13_flags or base64_flags):
