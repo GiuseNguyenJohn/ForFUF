@@ -228,6 +228,7 @@ class FileClass:
 
 def main():
     print(ascii_art)
+    print("Clearing log...")
     clear_log()
     parser = ArgumentParser(description="A command-line tool for"
                                         "to automate basic checks"
