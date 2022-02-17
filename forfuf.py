@@ -272,7 +272,7 @@ def main():
                 # print base64 flag
                 breakpoint()
                 print(f'Possible base64 flag: {flag}')
-                print(f"\tDECODED: {base64.b64decode(bytes(flag, 'utf-8'))}")
+                print(f"\tDECODED: {base64.b64decode(bytes(flag, 'utf-8')).decode()}")
         if not (plaintext_flags or rot13_flags or base64_flags):
             print("No flags found.")
     else:
