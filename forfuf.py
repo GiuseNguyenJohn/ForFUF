@@ -68,7 +68,7 @@ def get_regex_flag_formats(regex_string, start_flag):
     plaintext_pattern = re.compile(regex_string)
     rot13_pattern = re.compile(codecs.encode(regex_string, 'rot-13'))
     base64_first_three = base64.b64encode(bytes(start_flag, 'utf-8')).decode()
-    base64_pattern = re.compile(f"{base64_first_three[0:3]}[A-Za-z0-9+\]+[=]{{0,2}}\s")
+    base64_pattern = re.compile(f"{base64_first_three[0:3]}[+\A-Za-z0-9]+[=]{{0,2}}\s")
     return plaintext_pattern, rot13_pattern, base64_pattern
 
 def parse_for_possible_flags(match_object, text):
