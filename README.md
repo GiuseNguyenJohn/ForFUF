@@ -18,7 +18,7 @@ chmod +x forfuf.py
 ```
 ### Example:
 ```
-sudo ./forfuf.py -f "p.{0,2}i.{0,2}c.{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}\{.{1,30}\}" -s "picoCTF{" exiftool_base64.jpg
+sudo ./forfuf.py -f "p.{0,2}i.{0,2}c.{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}\{.{1,40}\}" -s "picoCTF{" exiftool_base64.jpg
 ```
 ## Usage:
 ```
