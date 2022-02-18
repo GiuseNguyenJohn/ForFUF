@@ -4,8 +4,9 @@ A command-line utility to automate the checking and solving of low hanging fruit
 
 _Note: Project still in development stage_
 
-DEMO: 
-
+```
+DEMO: https://youtu.be/4S2KxOsOzlw
+```
 ## Setup:
 ### Clone Repository:
 ```
