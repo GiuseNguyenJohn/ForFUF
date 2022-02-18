@@ -3,6 +3,9 @@
 A command-line utility to automate the checking and solving of low hanging fruit for CTF forensic challenges.
 
 _Note: Project still in development stage_
+
+<iframe src="https://www.veed.io/embed/87aadba3-22d0-455a-b888-b6da5f0b6de1" width="744" height="504" frameborder="0" title="Forfuf Demo" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
 ## Setup:
 ### Clone Repository:
 ```
