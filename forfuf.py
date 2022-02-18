@@ -43,16 +43,6 @@ def append_to_log(section_title, text):
         # Write text followed by one blank line
         f.write(f'\n{text}\n\n')
 
-def check_file_exists(filepath):
-    """Check that the given file exists."""
-    # We know the program is being run as root, so if an error is returned,
-    # we know the filepath doesn't exist.
-    if not exists(filepath):
-        print(f'"{filepath}" not found!')
-        exit(1)
-    else:
-        return True
-
 def clear_log():
     """Deletes log file if it exists."""
     try:
