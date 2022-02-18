@@ -10,7 +10,7 @@ git clone https://github.com/Magicks52/ForFUF.git && cd ./ForFUF
 ```
 ### Run 'install.sh': 
 ```
-sudo ./install.sh
+chmod +x ./install.sh && sudo ./install.sh
 ```
 ### Mark 'forfuf.py' as executable:
 ```
