@@ -2,9 +2,9 @@
 
 """
 Name: John Nguyen
-Contributors: Matt Sprengel
+Contributors: Matt Sprengel (@ItWasDNS), David Nam (@DavidTimothyNam)
 Description: Automates basic checks for CTF forensics challenges
-Dependecies: cat, binwalk, exiftool, strings, steghide, stegsolve, unzip, xxd, zsteg
+Dependecies: binwalk, exiftool, strings, steghide, stegsolve, unzip, xxd, zsteg
 Tested: Python 3.9 on Kali Linux
 """
 
@@ -96,12 +96,6 @@ def run_binwalk(filename):
     output = popen(cmd)
     return output.read() # Return output
 
-def run_cat(filename):
-    """Dumps ascii representation of data with 'cat FILENAME'."""
-    cmd = f"cat {filename}"
-    output = popen(cmd)
-    return output.read() # Return output
-
 def run_exiftool(filename):
     """Gets metadata with 'exiftool FILENAME'."""
     cmd = f"exiftool {filename}"
@@ -158,19 +152,8 @@ class FileClass:
         self.file_description = magic.from_file(filename)
         self.password = password
 
-    def check_setup(self):
-        """
-        Exits with error code 1 if not ran with sudo or
-        if given file doesn't exist.
-        """
-        check_sudo()
-        check_file_exists(self.filename)
-
     def handle_jpg_and_jpeg(self):
         """Runs all applicable checks on jpg/jpeg file."""
-        # cat (broken for now)
-        # print('Running cat...')
-        # append_to_log('cat', run_cat(self.filename))
         # strings
         print('Running strings...')
         append_to_log('strings', run_strings(self.filename))
@@ -226,6 +209,7 @@ def main():
     print(ascii_art)
     print("Clearing log...")
     clear_log()
+    # create argument parser
     parser = ArgumentParser(description="A command-line tool for"
                                         "to automate basic checks"
                                         "for CTF forensics challenges")
@@ -239,8 +223,8 @@ def main():
         file = FileClass(args.filename, args.password if args.password else None)
     except FileNotFoundError:
         print(f"No such file: '{args.filename}'")
-    # Check if setup is good to go
-    # file.check_setup()
+    # Check if uid is 0
+    check_sudo()
     # check if file is a zip
     if 'zip archive' in file.file_description.lower():
         print("ZIP archive detected.")
