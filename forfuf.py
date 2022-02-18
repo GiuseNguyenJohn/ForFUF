@@ -234,7 +234,7 @@ def main():
         print("File format not supported.")
         exit(1)
     # Find flag in log if --flag-format is specified
-    if args.flag_format and args.start_flag:
+    if args.flag_format:
         # Create flag match objects
         plain_mo, rot13_mo, base64_mo = get_regex_flag_formats(args.flag_format, args.start_flag)
         # Parse log file 'forfuf_log.txt' for matching flags
