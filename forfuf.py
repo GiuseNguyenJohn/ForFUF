@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 
 """
-Name: John Nguyen
+Author: John Nguyen (@Magicks52)
 Contributors: Matt Sprengel (@ItWasDNS), David Nam (@DavidTimothyNam)
 Description: Automates basic checks for CTF forensics challenges
-Dependecies: binwalk, exiftool, strings, steghide, stegsolve, unzip, xxd, zsteg
+Dependecies: binwalk, digital invisible ink toolkit, exiftool, strings,
+            steghide, stegsolve, unzip, xxd, zsteg
 Tested: Python 3.9 on Kali Linux
 """
 
@@ -16,8 +17,6 @@ import re
 from argparse import ArgumentParser
 from os.path import exists
 from os import popen, getuid, remove
-
-from rx import create
 
 ascii_art = """
  ________ ________  ________  ________ ___  ___  ________ 
