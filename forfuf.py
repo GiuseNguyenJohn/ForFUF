@@ -50,6 +50,16 @@ def clear_log():
     except:
         pass
 
+def create_regex_string(crib):
+    """Use the crib to create the regex string"""
+    crib = crib.strip("{")
+    regex_string = ""
+    for character in crib:
+        regex_string += character
+        regex_string += ".{0,2}"
+    regex_string += "{.*?}"
+    return regex_string
+
 def get_formatted_log():
     """Return log stripped of all newline characters."""
     with open('forfuf_log.txt', 'r') as f:
