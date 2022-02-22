@@ -38,6 +38,16 @@ def append_to_log(section_title, text):
         # Write text followed by one blank line
         f.write(f'\n{text}\n\n')
 
+def auto_create_regex_string(crib):
+    """Use the crib to create the regex string"""
+    crib = crib.strip("{")
+    regex_string = ""
+    for character in crib:
+        regex_string += character
+        regex_string += ".{0,2}"
+    regex_string += "\\{.*?\\}"
+    return regex_string
+
 def check_sudo():
     """Check if program is being run as root."""
     # Raise error if not run with uid 0 (root)
@@ -51,16 +61,6 @@ def clear_log():
         remove('forfuf_log.txt')
     except:
         pass
-
-def create_regex_string(crib):
-    """Use the crib to create the regex string"""
-    crib = crib.strip("{")
-    regex_string = ""
-    for character in crib:
-        regex_string += character
-        regex_string += ".{0,2}"
-    regex_string += "\\{.*?\\}"
-    return regex_string
 
 def get_formatted_log():
     """Return log stripped of all newline characters."""
@@ -248,7 +248,7 @@ def main():
     # Find flag in log if at least --crib is specified
     if args.crib:
         # Create regex string
-        regex_string = create_regex_string(args.crib)
+        regex_string = auto_create_regex_string(args.crib)
         if args.flag_format:
             regex_string = args.flag_format
         # Create flag match objects
