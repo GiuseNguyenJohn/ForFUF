@@ -27,13 +27,6 @@ ascii_art = """
     \|__|    \|_______|\|__|\|__|\|__|    \|_______|\|__| 
 """
 
-def check_sudo():
-    """Check if program is being run as root."""
-    # Raise error if not run with uid 0 (root)
-    if getuid() != 0:
-        print("This program is not being run with sudo permissions.")
-        exit(1)
-
 def append_to_log(section_title, text):
     """Append given heading and text to 'forfuf_log.txt'."""
     with open('forfuf_log.txt', 'a') as f:
@@ -42,6 +35,13 @@ def append_to_log(section_title, text):
         f.write(heading.replace(section_title, f' [ {section_title.title()} ] '))
         # Write text followed by one blank line
         f.write(f'\n{text}\n\n')
+
+def check_sudo():
+    """Check if program is being run as root."""
+    # Raise error if not run with uid 0 (root)
+    if getuid() != 0:
+        print("This program is not being run with sudo permissions.")
+        exit(1)
 
 def clear_log():
     """Deletes log file if it exists."""
