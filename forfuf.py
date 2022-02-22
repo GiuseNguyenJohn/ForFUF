@@ -59,7 +59,7 @@ def create_regex_string(crib):
     for character in crib:
         regex_string += character
         regex_string += ".{0,2}"
-    regex_string += "\{.*?\}"
+    regex_string += "\\{.*?\\}"
     return regex_string
 
 def get_formatted_log():
