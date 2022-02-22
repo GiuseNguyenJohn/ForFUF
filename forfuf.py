@@ -167,11 +167,7 @@ class FileClass:
         ask_stegsolve = input('Run stegsolve? (y/n)')
         if ask_stegsolve.lower() == 'y' or ask_stegsolve.lower() == 'yes':
             run_stegsolve()
-        # If input is 'y' or 'yes', run diit
-        ask_diit = input('Run Digital Ink Invisible Tookit? (y/n)')
-        if ask_diit.lower() == 'y' or ask_diit.lower() == 'yes':
-            run_diit()
-            
+        
     def handle_png_and_bmp(self):
         """Runs all applicable checks on png/bmp file."""
         # zsteg
@@ -179,7 +175,11 @@ class FileClass:
         append_to_log('zsteg', run_zsteg(self.filename))
         # run same checks for jpg/jpeg
         self.handle_jpg_and_jpeg()
-    
+        # If input is 'y' or 'yes', run diit
+        ask_diit = input('Run Digital Ink Invisible Tookit? (y/n)')
+        if ask_diit.lower() == 'y' or ask_diit.lower() == 'yes':
+            run_diit()
+            
     def handle_zip(self):
         """Tries to unzip file, alerts user if zip is password protected."""
         # unzip
