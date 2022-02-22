@@ -75,4 +75,5 @@ so important guidelines to keep in mind are:
 - [] iterencode to test all 26 ROT's instead of just rot13
 - [] make some functions work in python instead of using dependencies
 - [] fix and update unit tests
-- [] add option/automate the use of digital invisible ink toolkit (diit)
+- [] add option/automate the use of digital invisible ink toolkit
+    (diit only works with png/bmp)

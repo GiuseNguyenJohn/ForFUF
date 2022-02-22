@@ -86,6 +86,10 @@ def run_binwalk(filename):
     output = popen(cmd)
     return output.read() # Return output
 
+def run_diit():
+    """Run Digital Invisible Ink Toolkit from /bin/diit."""
+    popen('/bin/diit')
+
 def run_exiftool(filename):
     """Gets metadata with 'exiftool FILENAME'."""
     cmd = f"exiftool {filename}"
@@ -163,7 +167,11 @@ class FileClass:
         ask_stegsolve = input('Run stegsolve? (y/n)')
         if ask_stegsolve.lower() == 'y' or ask_stegsolve.lower() == 'yes':
             run_stegsolve()
-    
+        # If input is 'y' or 'yes', run diit
+        ask_diit = input('Run Digital Ink Invisible Tookit? (y/n)')
+        if ask_diit.lower() == 'y' or ask_diit.lower() == 'yes':
+            run_diit()
+            
     def handle_png_and_bmp(self):
         """Runs all applicable checks on png/bmp file."""
         # zsteg
@@ -213,6 +221,7 @@ def main():
         file = FileClass(args.filename, args.password if args.password else None)
     except FileNotFoundError:
         print(f"No such file: '{args.filename}'")
+        exit(1)
     # Check if uid is 0
     check_sudo()
     # check if file is a zip
