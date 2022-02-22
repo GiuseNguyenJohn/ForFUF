@@ -221,6 +221,7 @@ def main():
         file = FileClass(args.filename, args.password if args.password else None)
     except FileNotFoundError:
         print(f"No such file: '{args.filename}'")
+        exit(1)
     # Check if uid is 0
     check_sudo()
     # check if file is a zip
