@@ -209,6 +209,9 @@ class FileClass:
 
 def main():
     print(ascii_art)
+    # check if uid is 0
+    check_sudo()
+    # clear logfile
     print("Clearing log...")
     clear_log()
     # create argument parser
@@ -225,8 +228,6 @@ def main():
         file = FileClass(args.filename, args.password if args.password else None)
     except FileNotFoundError:
         print(f"No such file: '{args.filename}'")
-    # Check if uid is 0
-    check_sudo()
     # check if file is a zip
     if 'zip archive' in file.file_description.lower():
         print("ZIP archive detected.")
@@ -239,8 +240,10 @@ def main():
     elif 'png' in file.file_description.lower() or 'bmp' in file.file_description.lower():
         print("PNG/BMP file detected.")
         file.handle_png_and_bmp()
-    elif file.file_description.lower() == 'data': # check for corrupt header
+    # check for corrupt header
+    elif file.file_description.lower() == 'data':
         file.handle_corrupt_header()
+    # check if file is a valid file format, but unsupported
     else:
         print(f"File description: {file.file_description}")
         print("File format not supported.")
@@ -274,7 +277,7 @@ def main():
             print("No flags found.")
 
     else:
-        print("--flag-format (-f) or --start-flag (-s) not specified.")
+        print("--flag-format (-f) or --crib (-c) not specified.")
         exit(0)
 
 if __name__ == '__main__':
