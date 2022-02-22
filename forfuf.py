@@ -17,6 +17,8 @@ from argparse import ArgumentParser
 from os.path import exists
 from os import popen, getuid, remove
 
+from rx import create
+
 ascii_art = """
  ________ ________  ________  ________ ___  ___  ________ 
 |\  _____\\\\   __  \|\   __  \|\  _____\\\\  \|\  \|\  _____\\
@@ -57,7 +59,7 @@ def create_regex_string(crib):
     for character in crib:
         regex_string += character
         regex_string += ".{0,2}"
-    regex_string += "{.*?}"
+    regex_string += "\{.*?\}"
     return regex_string
 
 def get_formatted_log():
@@ -216,7 +218,7 @@ def main():
     parser.add_argument('filename', type=str, help='file to analyze')
     parser.add_argument('-f', '--flag-format', type=str, help='regex flag pattern')
     parser.add_argument('-p', '--password', type=str, help='password for steghide')
-    parser.add_argument('-s', '--start-flag', type=str, help='prefix of flag (ex. "picoctf{")')
+    parser.add_argument('-c', '--crib', type=str, help='crib of flag (ex. "picoctf")')
     args = parser.parse_args()
     # try to create instance of FileClass
     try:
@@ -243,10 +245,14 @@ def main():
         print(f"File description: {file.file_description}")
         print("File format not supported.")
         exit(1)
-    # Find flag in log if --flag-format is specified
-    if args.flag_format:
+    # Find flag in log if at least --crib is specified
+    if args.crib:
+        # Create regex string
+        regex_string = create_regex_string(args.crib)
+        if args.flag_format:
+            regex_string = args.flag_format
         # Create flag match objects
-        plain_mo, rot13_mo, base64_mo = get_regex_flag_formats(args.flag_format, args.start_flag)
+        plain_mo, rot13_mo, base64_mo = get_regex_flag_formats(regex_string, args.crib)
         # Parse log file 'forfuf_log.txt' for matching flags
         log_text = get_formatted_log()
         plaintext_flags = parse_for_possible_flags(plain_mo, log_text)
@@ -266,6 +272,7 @@ def main():
                 print(f"\tDECODED: {base64.b64decode(bytes(flag, 'utf-8')).decode()}")
         if not (plaintext_flags or rot13_flags or base64_flags):
             print("No flags found.")
+
     else:
         print("--flag-format (-f) or --start-flag (-s) not specified.")
         exit(0)
