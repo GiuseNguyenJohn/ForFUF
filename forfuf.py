@@ -9,6 +9,7 @@ Dependecies: binwalk, digital invisible ink toolkit, exiftool, strings,
 Tested: Python 3.9 on Kali Linux
 """
 
+import argcomplete
 import base64
 import binascii
 import codecs
@@ -229,6 +230,7 @@ def main():
     parser.add_argument('-f', '--flag-format', type=str, help='regex flag pattern')
     parser.add_argument('-p', '--password', type=str, help='password for steghide')
     parser.add_argument('-c', '--crib', type=str, help='crib of flag (ex. "picoctf")')
+    argcomplete.autocomplete(parser)
     args = parser.parse_args()
     # try to create instance of FileClass
     try:
