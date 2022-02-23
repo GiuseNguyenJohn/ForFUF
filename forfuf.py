@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 
 """
-Name: John Nguyen
+Author: John Nguyen (@Magicks52)
 Contributors: Matt Sprengel (@ItWasDNS), David Nam (@DavidTimothyNam)
 Description: Automates basic checks for CTF forensics challenges
-Dependecies: binwalk, exiftool, strings, steghide, stegsolve, unzip, xxd, zsteg
+Dependecies: binwalk, digital invisible ink toolkit, exiftool, strings,
+            steghide, stegsolve, unzip, xxd, zsteg
 Tested: Python 3.9 on Kali Linux
 """
 
@@ -27,13 +28,6 @@ ascii_art = """
     \|__|    \|_______|\|__|\|__|\|__|    \|_______|\|__| 
 """
 
-def check_sudo():
-    """Check if program is being run as root."""
-    # Raise error if not run with uid 0 (root)
-    if getuid() != 0:
-        print("This program is not being run with sudo permissions.")
-        exit(1)
-
 def append_to_log(section_title, text):
     """Append given heading and text to 'forfuf_log.txt'."""
     with open('forfuf_log.txt', 'a') as f:
@@ -42,6 +36,23 @@ def append_to_log(section_title, text):
         f.write(heading.replace(section_title, f' [ {section_title.title()} ] '))
         # Write text followed by one blank line
         f.write(f'\n{text}\n\n')
+
+def auto_create_regex_string(crib):
+    """Use the crib to create the regex string"""
+    crib = crib.strip("{")
+    regex_string = ""
+    for character in crib:
+        regex_string += character
+        regex_string += ".{0,2}"
+    regex_string += "\\{.*?\\}"
+    return regex_string
+
+def check_sudo():
+    """Check if program is being run as root."""
+    # Raise error if not run with uid 0 (root)
+    if getuid() != 0:
+        print("This program is not being run with sudo permissions.")
+        exit(1)
 
 def clear_log():
     """Deletes log file if it exists."""
@@ -205,6 +216,9 @@ class FileClass:
 
 def main():
     print(ascii_art)
+    # check if uid is 0
+    check_sudo()
+    # clear logfile
     print("Clearing log...")
     clear_log()
     # create argument parser
@@ -214,16 +228,13 @@ def main():
     parser.add_argument('filename', type=str, help='file to analyze')
     parser.add_argument('-f', '--flag-format', type=str, help='regex flag pattern')
     parser.add_argument('-p', '--password', type=str, help='password for steghide')
-    parser.add_argument('-s', '--start-flag', type=str, help='prefix of flag (ex. "picoctf{")')
+    parser.add_argument('-c', '--crib', type=str, help='crib of flag (ex. "picoctf")')
     args = parser.parse_args()
     # try to create instance of FileClass
     try:
         file = FileClass(args.filename, args.password if args.password else None)
     except FileNotFoundError:
         print(f"No such file: '{args.filename}'")
-        exit(1)
-    # Check if uid is 0
-    check_sudo()
     # check if file is a zip
     if 'zip archive' in file.file_description.lower():
         print("ZIP archive detected.")
@@ -236,16 +247,22 @@ def main():
     elif 'png' in file.file_description.lower() or 'bmp' in file.file_description.lower():
         print("PNG/BMP file detected.")
         file.handle_png_and_bmp()
-    elif file.file_description.lower() == 'data': # check for corrupt header
+    # check for corrupt header
+    elif file.file_description.lower() == 'data':
         file.handle_corrupt_header()
+    # check if file is a valid file format, but unsupported
     else:
         print(f"File description: {file.file_description}")
         print("File format not supported.")
         exit(1)
-    # Find flag in log if --flag-format is specified
-    if args.flag_format and args.start_flag:
+    # Find flag in log if at least --crib is specified
+    if args.crib:
+        # Create regex string
+        regex_string = auto_create_regex_string(args.crib)
+        if args.flag_format:
+            regex_string = args.flag_format
         # Create flag match objects
-        plain_mo, rot13_mo, base64_mo = get_regex_flag_formats(args.flag_format, args.start_flag)
+        plain_mo, rot13_mo, base64_mo = get_regex_flag_formats(regex_string, args.crib)
         # Parse log file 'forfuf_log.txt' for matching flags
         log_text = get_formatted_log()
         plaintext_flags = parse_for_possible_flags(plain_mo, log_text)
@@ -266,7 +283,7 @@ def main():
         if not (plaintext_flags or rot13_flags or base64_flags):
             print("No flags found.")
     else:
-        print("--flag-format (-f) or --start-flag (-s) not specified.")
+        print("--flag-format (-f) or --crib (-c) not specified.")
         exit(0)
 
 if __name__ == '__main__':

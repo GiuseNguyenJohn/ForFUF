@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 import unittest
+
+from numpy import correlate
 import forfuf
 import re
 
@@ -38,15 +40,10 @@ Megapixels                      : 4.6
 class ForfufTestCase(unittest.TestCase):
     """Tests for 'forfuf.py'."""
 
-    def test_check_file_exists(self):
-        """Will filename 'exiftool_base64.jpg' (it exists) return True?"""
-        file_exists = forfuf.check_file_exists('exiftool_base64.jpg')
-        self.assertEqual(file_exists, True)
-
     def test_parse_for_possible_flags(self):
         """Will --flag-format and --start-flag return correct flags?"""
         plaintext_mo, rot_13_mo, base64_mo = forfuf.get_regex_flag_formats("p.{0,2}i.{0,2}c"
-                ".{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}{.*}", "picoCTF{")
+                ".{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}\{.*\}", "picoCTF{")
         # correct flags
         correct_plaintext_flag = "picoCTF{1337}"
         correct_range_flag = "p.i.c.o.C.T.F.{.f.l.a.g.}"
@@ -61,6 +58,12 @@ class ForfufTestCase(unittest.TestCase):
         self.assertEqual(correct_range_flag, plaintext_flags[1])
         self.assertEqual(correct_rot_13_flag, rot_13_flags)
         self.assertEqual(correct_base64_flag, base64_flags)
+    
+    def test_create_regex_string(self):
+        """Will input 'picoctf' return p.{0,2}i.{0,2}c.{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}{.*?}"""
+        regex_string = forfuf.create_regex_string('picoctf{')
+        correct_regex_string = "p.{0,2}i.{0,2}c.{0,2}o.{0,2}C.{0,2}T.{0,2}F.{0,2}\{.*\}"
+        self.assertEqual(regex_string, correct_regex_string)
 
 if __name__ == '__main__':
     unittest.main()
